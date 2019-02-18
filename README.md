@@ -26,6 +26,50 @@
         	return r1[1].compareTo(r2[1]);
       		}
     		});
+    * 判断是否为空isEmpty()方法，if/while语句中默认为boolean类型的值
+    * 判断值是否相等
+  
+    	```
+    	int[] a = {1,2};  
+    	int[] b = a;  
+    	System.out.println(a.equals(b));  
+    	
+    	int[] a = {1,2};  
+    	int[] b = {1,2};  
+    	System.out.println(Arrays.equals(a,b));  
+    	```
+    	另外就是equals 与==
+    	
+    	```
+    	基本数据类型（也称原始数据类型） ：byte,short,char,int,long,float,double,boolean。他们之间的比较，应用双等号（==）,比较的是他们的值。
+    	
+    	引用数据类型：当他们用（==）进行比较的时候，比较的是他们在内存中的存放地址（确切的说，是堆内存地址）。对于第二种类型，除非是同一个new出来的对象，他们的比较后的结果为true，否则比较后结果为false。因为每new一次，都会重新开辟堆内存空间。
+    	
+    	Java在声明变量的时候会区分栈内存和堆内存，所有能看到的变量名称是在栈内存上，而变量的地址在堆内存。比如：
+    	1 public class StringDemo {
+ 2     public static void main(String args[]) {
+ 3         String str1 = "Hello";
+ 4         String str2 = new String("Hello");
+ 5         String str3 = str2; // 引用传递
+ 6         System.out.println(str1 == str2); // false
+ 7         System.out.println(str1 == str3); // false
+ 8         System.out.println(str2 == str3); // true
+ 9         System.out.println(str1.equals(str2)); // true
+10         System.out.println(str1.equals(str3)); // true
+11         System.out.println(str2.equals(str3)); // true
+12     }
+13 }
+		在栈中有str1,str2,str3三个变量，而在堆上只有str1,str2两个内存地址，str2与str3都指向一个地址。
+		
+		因此：请解释字符串比较之中“==”和equals()的区别？
+
+ 		==：比较的是两个字符串内存地址（堆内存）的数值是否相等，属于数值比较；
+ 		
+ 		equals()：比较的是两个字符串的内容，属于内容比较。
+有关对象类型相等判断的时候都使用equals()。
+    	
+    	```
+
 
 * 在声明数组的时候需要确定大小
 	* int[] array = new array[5];
@@ -44,6 +88,14 @@
 
 * Linked List
 	* 获取结构题中的值直接用"."来获得相应的属性即可，不需要区分值还是地址
+	* Queue是LinkedList的一种，Queue<int[]>q = new LinkedList<>();
+	* q.offer()插入并返回true，如果队列已满，则返回false
+	  
+	  q.poll()移除并返问队列头部的元素，如果队列为空，则返回null
+
+	  q.peek()返回头部元素，如果队列为空，则返回null
+     
+     java抛出异常和返回阻塞时还有不同的操作【待学习】
 
 * ArrayList： List<String> person=new ArrayList<>(); 
 [举例的链接](https://www.cnblogs.com/epeter/p/5648026.html) 
