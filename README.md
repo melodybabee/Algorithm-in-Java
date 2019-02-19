@@ -13,19 +13,21 @@
 			int cur = Integer.parseInt(content[2]);
 			//转为double
 			double second = Double.parseDouble(str[1]);
+			
     * 对于数组的输出不需要一个一个遍历，类似auto的操作
     		
     		for(String[] s : result){
-      		System.out.println(s[0] + "," + s[1] + "," + 			s[2]);
-    		}
+      			System.out.println(s[0] + "," + s[1] + "," + s[2]);
+    			}
     * 自定义排序方法，Collections大写，有s；Comparator大写
     
     		Collections.sort(result, new Comparator<String[]>(){
-     		 @Override
-      		public int compare(String[] r1, String[] r2){
-        	return r1[1].compareTo(r2[1]);
-      		}
+     		 	@Override
+      			public int compare(String[] r1, String[] r2){
+        		return r1[1].compareTo(r2[1]);
+      			}
     		});
+    		
     * 判断是否为空isEmpty()方法，if/while语句中默认为boolean类型的值
     * 判断值是否相等
   
@@ -73,11 +75,11 @@
     	
     * int范围内最大表示为Interger.MAX_VALUE; 初始值赋值需要依次遍历。用Arrays.fill()方法来快速填充.Java里面没有auto.
    
-   ```
-   for(int[] a: dp){
+   		```
+   		for(int[] a: dp){
             Arrays.fill(a, Integer.MAX_VALUE);
-        }
-   ```
+   		     }
+  	 	```
 
 * 在声明数组的时候需要确定大小
 	* int[] array = new array[5];
