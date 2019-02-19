@@ -47,18 +47,18 @@
     	
     	Java在声明变量的时候会区分栈内存和堆内存，所有能看到的变量名称是在栈内存上，而变量的地址在堆内存。比如：
     	1 public class StringDemo {
- 2     public static void main(String args[]) {
- 3         String str1 = "Hello";
- 4         String str2 = new String("Hello");
- 5         String str3 = str2; // 引用传递
- 6         System.out.println(str1 == str2); // false
- 7         System.out.println(str1 == str3); // false
- 8         System.out.println(str2 == str3); // true
- 9         System.out.println(str1.equals(str2)); // true
-10         System.out.println(str1.equals(str3)); // true
-11         System.out.println(str2.equals(str3)); // true
-12     }
-13 }
+ 		2     public static void main(String args[]) {
+ 		3         String str1 = "Hello";
+ 		4         String str2 = new String("Hello");
+ 		5         String str3 = str2; // 引用传递
+ 		6         System.out.println(str1 == str2); // false
+ 		7         System.out.println(str1 == str3); // false
+ 		8         System.out.println(str2 == str3); // true
+ 		9         System.out.println(str1.equals(str2)); // true
+		10         System.out.println(str1.equals(str3)); // true
+		11         System.out.println(str2.equals(str3)); // true
+		12     }
+		13 }
 		在栈中有str1,str2,str3三个变量，而在堆上只有str1,str2两个内存地址，str2与str3都指向一个地址。
 		
 		因此：请解释字符串比较之中“==”和equals()的区别？
@@ -66,12 +66,12 @@
  		==：比较的是两个字符串内存地址（堆内存）的数值是否相等，属于数值比较；
  		
  		equals()：比较的是两个字符串的内容，属于内容比较。
-有关对象类型相等判断的时候都使用equals()。
+ 		
+		有关对象类型相等判断的时候都使用equals()。
     	
     	```
     	
-    	
-   * int范围内最大表示为Interger.MAX_VALUE; 初始值赋值需要依次遍历。用Arrays.fill()方法来快速填充.Java里面没有auto.
+    * int范围内最大表示为Interger.MAX_VALUE; 初始值赋值需要依次遍历。用Arrays.fill()方法来快速填充.Java里面没有auto.
    
    ```
    for(int[] a: dp){
