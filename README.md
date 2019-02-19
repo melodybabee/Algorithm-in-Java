@@ -69,7 +69,15 @@
 有关对象类型相等判断的时候都使用equals()。
     	
     	```
-
+    	
+    	
+   * int范围内最大表示为Interger.MAX_VALUE; 初始值赋值需要依次遍历。用Arrays.fill()方法来快速填充.Java里面没有auto.
+   
+   ```
+   for(int[] a: dp){
+            Arrays.fill(a, Integer.MAX_VALUE);
+        }
+   ```
 
 * 在声明数组的时候需要确定大小
 	* int[] array = new array[5];
