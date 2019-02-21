@@ -80,6 +80,9 @@
             Arrays.fill(a, Integer.MAX_VALUE);
    		     }
   	 	```
+  	 	但是如果是long类型就要用Long.MAX_VALUE;
+  	 	
+  	* 在调用结构体中的元素值的时候用.,比如树结构中要用root.val
 
 * 在声明数组的时候需要确定大小
 	* int[] array = new array[5];
@@ -87,9 +90,13 @@
 	* 如果声明空也要初始化
 
 			String result = "";
+* String
+	* String在java中作为一个对象要保持对象的操作，比如求长度要用String.length()，而在一个字符串中找某个字符的位置需要String.charAt()
 
 * 在声明一个对象的时候需要（）
 	* Map<Integer, Interget> map = new HashMap<Integer, Integet>();也可以写成HashMap<String,Integer> map = new HashMap<>();
+	* Stack<int> st = new Stack<>();
+	* 判断一个对象是否为空要用isEmpty()方法
 
 *  Map
 	* map.containsKey()来判断某个key是否存在
