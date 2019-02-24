@@ -13,7 +13,14 @@
 			int cur = Integer.parseInt(content[2]);
 			//转为double
 			double second = Double.parseDouble(str[1]);
-			
+    * 基本数据类型，分为boolean、byte、int、char、long、short、double、float； 引用数据类型 ，分为数组、类、接口。
+    * 拆箱和装箱：为了编程的方便还是引入了基本数据类型，但是为了能够将这些基本数据类型当成对象操作，Java为每一个基本数据类型都引入了对应的包装类型（wrapper class），int的包装类就是Integer，从Java 5开始引入了自动装箱/拆箱机制，使得二者可以相互转换。
+
+    ```
+    	基本数据类型: boolean，char，byte，short，int，long，float，double
+		封装类类型：Boolean，Character，Byte，Short，Integer，Long，Float，Double
+    ```
+    
     * 对于数组的输出不需要一个一个遍历，类似auto的操作
     		
     		for(String[] s : result){
@@ -83,6 +90,7 @@
   	 	但是如果是long类型就要用Long.MAX_VALUE;
   	 	
   	* 在调用结构体中的元素值的时候用.,比如树结构中要用root.val
+  	* 数组的大小为length,String的大小为length(),其他泛型的大小为size()
 
 * 在声明数组的时候需要确定大小
 	* int[] array = new array[5];
@@ -93,15 +101,50 @@
 * String
 	* String在java中作为一个对象要保持对象的操作，比如求长度要用String.length()，而在一个字符串中找某个字符的位置需要String.charAt()
 
+* Integer
+	* (1) Integer是int的包装类；int是基本数据类型；
+	* (2) Integer变量必须实例化后才能使用；int变量不需要； 
+	* (3) Integer实际是对象的引用，指向此new的Integer对象；int是直接存储数据值 ； 
+	* (4) Integer的默认值是null；int的默认值是0。
+	* 由于Integer变量实际上是对一个Integer对象的引用，所以两个通过new生成的Integer变量永远是不相等的（因为new生成的是两个对象，其内存地址不同）。
+	
+	```
+		Integer i = new Integer(100);
+		Integer j = new Integer(100);
+		System.out.print(i == j); //false
+
+	```
+
+	* Integer变量和int变量比较时，只要两个变量的值是向等的，则结果为true（因为包装类Integer和基本数据类型int比较时，java会自动拆包装为int，然后进行比较，实际上就变为两个int变量的比较）
+	
+	```
+		Integer i = new Integer(100);
+		int j = 100；
+		System.out.print(i == j); //true
+	```
+	
+	* 非new生成的Integer变量和new Integer()生成的变量比较时，结果为false。（因为非new生成的Integer变量指向的是java常量池中的对象，而new Integer()生成的变量指向堆中新建的对象，两者在内存中的地址不同）
+
+	```
+		Integer i = new Integer(100);
+		Integer j = 100;
+		System.out.print(i == j); //false
+	```
+	
+	
 * 在声明一个对象的时候需要（）
 	* Map<Integer, Interget> map = new HashMap<Integer, Integet>();也可以写成HashMap<String,Integer> map = new HashMap<>();
 	* Stack<int> st = new Stack<>();
 	* 判断一个对象是否为空要用isEmpty()方法
+	* 
 
 *  Map
 	* map.containsKey()来判断某个key是否存在
 	* map.put(key,value)来插入新的键值对
 	* map.get(key)用来获取key所对应的value
+	* 建立map,map中仍然套着一个对象的时候Map<String,List<Integer>> map = new HashMap<>();
+每当用到这个内部的对象的时候都需要new一个对象出来：List<Integer> list = new ArrayList<Integer>()
+	
 
 * Linked List
 	* 获取结构题中的值直接用"."来获得相应的属性即可，不需要区分值还是地址
@@ -124,6 +167,7 @@
 	* list中根据索引将元素数值改变(替换)：注意 .set(index, element); 和 .add(index, element); 的不同；
 	* 判断list是否为空；person.isEmpty(),空则返回true，非空则返回false
 	* List中是数组类型，List<String[]> result = new ArrayList<>();
+	* 取list的长度要用size()
 
 * Collections
 	* Collections.sort(list) 对list进行排序
