@@ -91,7 +91,10 @@
   	 	
   	* 在调用结构体中的元素值的时候用.,比如树结构中要用root.val
   	* 数组的大小为length,String的大小为length(),其他泛型的大小为size()
+  	* isEmpty()等同于size()==0,已经分配了空间但是里面没有元素。 == null 表示根本没有分配空间。
+  	* public String substring(int beginIndex)起始索引（包括）, 索引从 0 开始。public String substring(int beginIndex, int endIndex)endIndex -- 结束索引（不包括）。
 
+  	
 * 在声明数组的时候需要确定大小
 	* int[] array = new array[5];
 	* String[] name = {"ONE HUNDRED", "FIFTY", "TWENTY","TEN","FIVE","TWO","ONE","HALF DOLLAR","QUARTER","DIME","NICKEL","PENNY"};如果直接声明初始值注意用{}
@@ -144,7 +147,61 @@
 	* map.get(key)用来获取key所对应的value
 	* 建立map,map中仍然套着一个对象的时候Map<String,List<Integer>> map = new HashMap<>();
 每当用到这个内部的对象的时候都需要new一个对象出来：List<Integer> list = new ArrayList<Integer>()
+	* Map是java中的接口，Map.Entry是Map的一个内部接口。
 	
+		keySet()方法返回值是Map中key值的集合；entrySet()的返回值也是返回一个Set集合，此集合的类型为Map.Entry。
+		
+		Map.Entry是Map声明的一个内部接口，此接口为泛型，定义为Entry<K,V>。它表示Map中的一个实体（一个key-value对）。接口中有getKey(),getValue（）方法。
+	
+	 ```
+	 Map<String, String> map = new HashMap<String, String>();    
+  	map.put("key1", "value1");    
+  	map.put("key2", "value2");    
+  	map.put("key3", "value3");    
+      
+  		//第一种：普遍使用，二次取值    
+  System.out.println("通过Map.keySet遍历key和value：");    
+  for (String key : map.keySet()) {    
+   System.out.println("key= "+ key + " and value= " + map.get(key));    
+  }    
+      
+  		//第二种    
+  System.out.println("通过Map.entrySet使用iterator遍历key和value：");    
+  Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();    
+  while (it.hasNext()) {    
+   Map.Entry<String, String> entry = it.next();    
+   System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());    
+  }    
+      
+ 		//第三种：推荐，尤其是容量大时</span>    
+  System.out.println("通过Map.entrySet遍历key和value");    
+  for (Map.Entry<String, String> entry : map.entrySet()) {    
+   System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());    
+  }    
+    
+  		//第四种    
+  System.out.println("通过Map.values()遍历所有的value，但不能遍历key");    
+  for (String v : map.values()) {    
+   System.out.println("value= " + v);    
+  }
+
+
+	 ```
+	
+* List
+	* List列表类，顺序存储任何对象（顺序不变），可重复。
+	* List是继承于Collection的接口，不能实例化。实例化可以用:
+		* ArrayList(实现动态数组)，查询快（随意访问或顺序访问），增删慢。整体清空快，线程不同步(非线程安全)。数组长度是可变的百分之五十延长.顺序存储是将数据元素存放于一个连续的存储空间中，实现顺序存取或(按下标)直接存取。存储效率高，速度快。但空间大小一经定义，在程序整个运行期间不会发生改变，因此，不易扩充。同时，由于在插入或删除时，为保持原有次序(没有规定元素进栈顺序)，平均需要移动一半(或近一半)元素，修改效率不高。
+    	* LinkedList（实现链表），查询慢，增删快。链接存储表示的存储空间一般在程序的运行过程中动态分配和释放，且只要存储器中还有空间，就不会产生存储溢出的问题。同时在插入和删除时不需要保持数据元素原来的物理顺序，只需要保持原来的逻辑顺序，因此不必移动数据，只需修改它们的链接指针，修改效率较高。但存取表中的数据元素时，只能循链顺序访问，因此存取效率不高。
+    	* Vector（实现动态数组），都慢，被ArrayList替代。长度任意延长。线程安全（同步的类，函数都是synchronized）
+    	* Stack（实现堆栈）继承于Vector，先进后出。
+    * 快速访问ArrayList，快速增删LinkedList，单线程都可以用，多线程只能用同步类Vector
+    * list基本操作
+    	* 插入：add()
+    	* 查找：get()
+    	* 删除：remove(int index)
+    	* 修改：set()
+    	* 清空表：clear()
 
 * Linked List
 	* 获取结构题中的值直接用"."来获得相应的属性即可，不需要区分值还是地址
@@ -168,6 +225,17 @@
 	* 判断list是否为空；person.isEmpty(),空则返回true，非空则返回false
 	* List中是数组类型，List<String[]> result = new ArrayList<>();
 	* 取list的长度要用size()
+
+* PriorityQueue
+ 	* 优先队列的作用是能保证每次取出的元素都是队列中权值最小的（Java的优先队列每次取最小元素，C++的优先队列每次取最大元素),具体说是通过完全二叉树（complete binary tree）实现的小顶堆（任意一个非叶子节点的权值，都不大于其左右子节点的权值）
+ 	*  add()和offer()都是向优先队列中插入元素，只是Queue接口规定二者对插入失败时的处理不同，前者在插入失败时抛出异常，后则则会返回false
+ 	*  element()和peek()的语义完全相同，都是获取但不删除队首元素，也就是队列中权值最小的那个元素，二者唯一的区别是当方法失败时前者抛出异常，后者返回null
+ 	*  remove()和poll()方法的语义也完全相同，都是获取并删除队首元素，区别是当方法失败时前者抛出异常，后者返回null
+ 	*  PriorityQueue()使用默认的初始容量创建一个 PriorityQueue，并根据其自然顺序来排序其元素（使用 Comparable）。
+
+ 		PriorityQueue(int initialCapacity)使用指定的初始容量创建一个 PriorityQueue，并根据其自然顺序来排序其元素（使用 Comparable）。
+ 		
+ 		PriorityQueue(int initialCapacity, Comparator<? super E> comparator)使用指定的初始容量创建一个 PriorityQueue，并根据指定的比较器comparator来排序其元素。
 
 * Collections
 	* Collections.sort(list) 对list进行排序
@@ -205,10 +273,92 @@ public static void main(String args[]) {
 
 TreeSet是可以保持自然顺序或者定义的比较器比较的结果顺序的Set集合。
 
+* Comparator
+	* Arrays.sort(T[],Comparator<? super T> c);
+	* Collections.sort(List<T> list,Comparator<? super T> c);
+
+	```
+	import java.util.ArrayList;
+	import java.util.Collections;
+	import java.util.Comparator;
+	import java.util.List;
+
+	public class SortTest {
+    class Dog{
+    	public int age;
+    	public String name;
+    	public Dog(int age, String name) {
+        	super();
+        	this.age = age;
+        	this.name = name;
+    	}
+    @Override
+   	 public String toString() {
+        return "Dog [age=" + age + ", name=" + name + "]";
+    }
+    }
+    public static void main(String[] args) {
+    List<Dog> list= new ArrayList<>();
+    list.add(new SortTest().new Dog(5, "DogA"));
+    list.add(new SortTest().new Dog(6, "DogB"));
+    list.add(new SortTest().new Dog(7, "DogC"));
+    Collections.sort(list, new Comparator<Dog>() {
+
+        @Override
+        //按照数字大小排序
+        //当返回1的时候排序方式是 t2,t1
+        //当返回0的时候排序方式是 t1,t2
+        //当返回-1的时候排序方式是t1,t2
+        //注意
+        //返回值大于1效果等同于1
+        //返回值小于1 效果等同于0，-1
+
+        public int compare(Dog o1, Dog o2) {
+        return o2.age - o1.age;
+        }
+    });
+    System.out.println("给狗狗按照年龄倒序："+list);
+    Collections.sort(list, new Comparator<Dog>() {
+
+        @Override
+        //按照字典序排序
+        public int compare(Dog o1, Dog o2) {
+        return o1.name.compareTo(o2.name);
+        }
+    });
+    System.out.println("给狗狗按名字字母顺序排序："+list);
+    }
+}
+
+	```
 * 读取输入流
 
 		InputStreamReader reader = new InputStreamReader(System.in, StandardCharsets.UTF_8);
 		BufferedReader in = new BufferedReader(reader);
 		String line;
 		while((line = in.readLine()) != null){}
-	
+
+* API
+	* java.util.Arrays；
+		* Arrays.asList();使用该方法可以将一个变长参数或者数组转换成List(15)
+		* Arrays.sort();
+		
+		```
+		String[] names = { "Liz", "John", "Eric", "Alan" };  
+		//只排序前两个  
+		//[John, Liz, Eric, Alan]  
+		Arrays.sort(names, 0, 2);  
+		//全部排序  
+		//[Alan, Eric, John, Liz]  
+		Arrays.sort(names);  
+		```
+		* Arrays.toString();Arrays的toString方法可以方便我们打印出数组内容。 
+		* Arrays.equals();使用Arrays.equals来比较1维数组是否相等。 
+		* Arrays.fill();给指定数组填充上指定的值
+		
+		```
+		int[] array1 = new int[8];  
+       Arrays.fill(array1, 1);  
+       //[1, 1, 1, 1, 1, 1, 1, 1]  
+       System.out.println(Arrays.toString(array1));  
+		```
