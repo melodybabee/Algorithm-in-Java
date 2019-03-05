@@ -16,16 +16,15 @@
     * 基本数据类型，分为boolean、byte、int、char、long、short、double、float； 引用数据类型 ，分为数组、类、接口。
     * 拆箱和装箱：为了编程的方便还是引入了基本数据类型，但是为了能够将这些基本数据类型当成对象操作，Java为每一个基本数据类型都引入了对应的包装类型（wrapper class），int的包装类就是Integer，从Java 5开始引入了自动装箱/拆箱机制，使得二者可以相互转换。
 
-    ```
-    	基本数据类型: boolean，char，byte，short，int，long，float，double
-		封装类类型：Boolean，Character，Byte，Short，Integer，Long，Float，Double
-    ```
+			基本数据类型: boolean，char，byte，short，int，long，float，double
+			封装类类型：Boolean，Character，Byte，Short，Integer，Long，Float，Double
     
     * 对于数组的输出不需要一个一个遍历，类似auto的操作
     		
     		for(String[] s : result){
       			System.out.println(s[0] + "," + s[1] + "," + s[2]);
     			}
+    			
     * 自定义排序方法，Collections大写，有s；Comparator大写
     
     		Collections.sort(result, new Comparator<String[]>(){
