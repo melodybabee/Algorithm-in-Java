@@ -16,6 +16,41 @@
 			//转为double
 			double second = Double.parseDouble(str[1]);
     * 基本数据类型，分为boolean、byte、int、char、long、short、double、float； 引用数据类型 ，分为数组、类、接口。
+
+		在Java中，所有值也都有类型，不同的值有不同的范围。
+		
+		```
+		int:   -2^31-2^31-1, 约为2147483648，是一个10位数字。是一个32位的值,32位表示32个0/1二进制编码，4 byte, 4 byte* 8bits = 32bits,
+		long:  需要写成long num = 10000L; 没有后面的L是错的
+		float: 范围较小的浮点数, float num = 3.2f, 没有f是错的
+		double:范围较大的浮点数，double num = 3.2;
+		范围小的值可以默认转换为范围较大的值，而范围较大的值需要通过强制转换才能转换为范围较小的值
+		比如：
+		3.0f/2 -> 3.0f/2.0f -> 1.5f
+		3.2.0f -> 3.0f/2.0f -> 1.5f
+		char:  在计算机底层以整数的形式存储，所以每个字符都可以表示为一个数字。占2个字节，2 byte * 8 bits = 16 bits
+		char类型小于int, int小于float
+		
+		```
+	
+	* ASCII码与unicode
+
+		ASCII码： 0-127；Unicode: 16进制，65536个值，是ASCII码的超集，向下兼容。
+		因此可以通过unicode来对字符进行运算以及比较。
+		
+		```
+		int delta = 'a' - 'A'; 
+		a is 97, A is 65;
+		delta = 32;
+		
+		'a'<'b' ------> true;
+		
+		char preChar = 'a';
+		char nextChar = (char)(prechar + 1);
+		nextChar = 'b';
+		
+		```
+	
     * 拆箱和装箱：为了编程的方便还是引入了基本数据类型，但是为了能够将这些基本数据类型当成对象操作，Java为每一个基本数据类型都引入了对应的包装类型（wrapper class），int的包装类就是Integer，从Java 5开始引入了自动装箱/拆箱机制，使得二者可以相互转换。
 
 			基本数据类型: boolean，char，byte，short，int，long，float，double
