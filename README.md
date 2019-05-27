@@ -1,146 +1,170 @@
 # Java涉及的知识点
-* General
-	* C++, Java和C#都是静态类型的编程语言，Python，JavaScript是动态类型的编程语言。动态类型的编程语言开发效率往往更高，静态类型的编程语言运行效率往往更高。Java是一门强类型、静态类型的语言。变量声明的时候要指明变量类型，不一定要在声明的时候制定变量的值，变量在声明的时候会有一个默认值。
-	* 基本数据类型有8个，分别为byte, short, int, long, float, double, boolean, char
-	* while()条件中放的是boolean类型的变量，那么如果判断是否存在要写成 != null的时候表示存在，不能只写出变量来判断是否存在
-	* String在java中是一类对象，因此都需要大写。但是比如double是字符类型，因此要小写。通常String划分字符串需要用到
+## General
+#### 1. C++, Java和C#都是静态类型的编程语言，Python，JavaScript是动态类型的编程语言。动态类型的编程语言开发效率往往更高，静态类型的编程语言运行效率往往更高。Java是一门强类型、静态类型的语言。变量声明的时候要指明变量类型，不一定要在声明的时候制定变量的值，变量在声明的时候会有一个默认值。
+#### 2. 基本数据类型有8个，分别为byte, short, int, long, float, double, boolean, char
+#### 3. while()条件中放的是boolean类型的变量，那么如果判断是否存在要写成 != null的时候表示存在，不能只写出变量来判断是否存在
+#### 4. String在java中是一类对象，因此都需要大写。但是比如double是字符类型，因此要小写。通常String划分字符串需要用到
 
-			String[] str = line.split(".")//比如用.来划分
-			//读出划分后的值并且转换为double类型
-			double first = Double.parseDouble(str[0]);
-			double second = Double.parseDouble(str[1]);
-	* 类型转换
+```
+//比如用.来划分
+String[] str = line.split(".")
+//读出划分后的值并且转换为double类型
+double first = Double.parseDouble(str[0]);
+double second = Double.parseDouble(str[1]);
 
-			//转为int
-			int cur = Integer.parseInt(content[2]);
-			//转为double
-			double second = Double.parseDouble(str[1]);
-    * 基本数据类型，分为boolean、byte、int、char、long、short、double、float； 引用数据类型 ，分为数组、类、接口。
+```
 
-		在Java中，所有值也都有类型，不同的值有不同的范围。
-		
-		```
-		int:   -2^31-2^31-1, 约为2147483648，是一个10位数字。是一个32位的值,32位表示32个0/1二进制编码，4 byte, 4 byte* 8bits = 32bits,
-		long:  需要写成long num = 10000L; 没有后面的L是错的
-		float: 范围较小的浮点数, float num = 3.2f, 没有f是错的
-		double:范围较大的浮点数，double num = 3.2;
-		范围小的值可以默认转换为范围较大的值，而范围较大的值需要通过强制转换才能转换为范围较小的值
-		比如：
-		3.0f/2 -> 3.0f/2.0f -> 1.5f
-		3.2.0f -> 3.0f/2.0f -> 1.5f
-		char:  在计算机底层以整数的形式存储，所以每个字符都可以表示为一个数字。占2个字节，2 byte * 8 bits = 16 bits
-		char类型小于int, int小于float
-		
-		```
+#### 5.类型转换
+
+```
+//转为int
+int cur = Integer.parseInt(content[2]);
+//转为double
+double second = Double.parseDouble(str[1]);
+
+```
+
+#### 6.基本数据类型，分为boolean、byte、int、char、long、short、double、float； 引用数据类型 ，分为数组、类、接口。
+
+在Java中，所有值也都有类型，不同的值有不同的范围。
+
+```		
+int:   -2^31-2^31-1, 约为2147483648，是一个10位数字。是一个32位的值,32位表示32个0/1二进制编码，4 byte, 4 byte* 8bits = 32bits
+long:  需要写成long num = 10000L; 没有后面的L是错的
+float: 范围较小的浮点数, float num = 3.2f, 没有f是错的
+double:范围较大的浮点数，double num = 3.2;
+范围小的值可以默认转换为范围较大的值，而范围较大的值需要通过强制转换才能转换为范围较小的值
+比如：3.0f/2 -> 3.0f/2.0f -> 1.5f
+     3.2.0f -> 3.0f/2.0f -> 1.5f
+char:  在计算机底层以整数的形式存储，所以每个字符都可以表示为一个数字。占2个字节，2 byte * 8 bits = 16 bits
+char类型小于int, int小于float
+```
 	
-	* ASCII码与unicode
+#### 7.ASCII码与unicode
 
-		ASCII码： 0-127；Unicode: 16进制，65536个值，是ASCII码的超集，向下兼容。
-		因此可以通过unicode来对字符进行运算以及比较。
+ASCII码： 0-127；Unicode: 16进制，65536个值，是ASCII码的超集，向下兼容。
+
+因此可以通过unicode来对字符进行运算以及比较。
 		
-		```
-		int delta = 'a' - 'A'; 
-		a is 97, A is 65;
-		delta = 32;
-		
-		'a'<'b' ------> true;
-		
-		char preChar = 'a';
-		char nextChar = (char)(prechar + 1);
-		nextChar = 'b';
-		
-		```
+```
+int delta = 'a' - 'A'; 
+a is 97, A is 65;
+delta = 32;
 	
-    * 拆箱和装箱：为了编程的方便还是引入了基本数据类型，但是为了能够将这些基本数据类型当成对象操作，Java为每一个基本数据类型都引入了对应的包装类型（wrapper class），int的包装类就是Integer，从Java 5开始引入了自动装箱/拆箱机制，使得二者可以相互转换。
+'a'<'b' ------> true;
+	
+char preChar = 'a';
+char nextChar = (char)(prechar + 1);
+nextChar = 'b';
+	
+```
+	
+#### 8.拆箱和装箱：
+为了编程的方便还是引入了基本数据类型，但是为了能够将这些基本数据类型当成对象操作，Java为每一个基本数据类型都引入了对应的包装类型（wrapper class），int的包装类就是Integer，从Java 5开始引入了自动装箱/拆箱机制，使得二者可以相互转换。
 
-			基本数据类型: boolean，char，byte，short，int，long，float，double
-			封装类类型：Boolean，Character，Byte，Short，Integer，Long，Float，Double
+基本数据类型: boolean，char，byte，short，int，long，float，double
+封装类类型：Boolean，Character，Byte，Short，Integer，Long，Float，Double
     
-    * 对于数组的输出不需要一个一个遍历，类似auto的操作
-    		
-    		for(String[] s : result){
-      			System.out.println(s[0] + "," + s[1] + "," + s[2]);
-    			}
+#### 9.对于数组的输出不需要一个一个遍历，类似auto的操作
+
+```		
+for(String[] s : result){
+	System.out.println(s[0] + "," + s[1] + "," + s[2]);
+}
+```
     			
-    * 自定义排序方法，Collections大写，有s；Comparator大写
-    
-    		Collections.sort(result, new Comparator<String[]>(){
-     		 	@Override
-      			public int compare(String[] r1, String[] r2){
-        		return r1[1].compareTo(r2[1]);
-      			}
-    		});
-    		
-    * 判断是否为空isEmpty()方法，if/while语句中默认为boolean类型的值
-    * 判断值是否相等
-  
-    	```
-    	int[] a = {1,2};  
-    	int[] b = a;  
-    	System.out.println(a.equals(b));  
-    	
-    	int[] a = {1,2};  
-    	int[] b = {1,2};  
-    	System.out.println(Arrays.equals(a,b));  
-    	```
-    	另外就是equals 与==
-    	
-    	```
-    	基本数据类型（也称原始数据类型） ：byte,short,char,int,long,float,double,boolean。他们之间的比较，应用双等号（==）,比较的是他们的值。
-    	
-    	引用数据类型：当他们用（==）进行比较的时候，比较的是他们在内存中的存放地址（确切的说，是堆内存地址）。对于第二种类型，除非是同一个new出来的对象，他们的比较后的结果为true，否则比较后结果为false。因为每new一次，都会重新开辟堆内存空间。
-    	
-    	Java在声明变量的时候会区分栈内存和堆内存，所有能看到的变量名称是在栈内存上，而变量的地址在堆内存。比如：
-    	1 public class StringDemo {
- 		2     public static void main(String args[]) {
- 		3         String str1 = "Hello";
- 		4         String str2 = new String("Hello");
- 		5         String str3 = str2; // 引用传递
- 		6         System.out.println(str1 == str2); // false
- 		7         System.out.println(str1 == str3); // false
- 		8         System.out.println(str2 == str3); // true
- 		9         System.out.println(str1.equals(str2)); // true
-		10         System.out.println(str1.equals(str3)); // true
-		11         System.out.println(str2.equals(str3)); // true
-		12     }
-		13 }
-		在栈中有str1,str2,str3三个变量，而在堆上只有str1,str2两个内存地址，str2与str3都指向一个地址。
-		
-		因此：请解释字符串比较之中“==”和equals()的区别？
+#### 10.自定义排序方法，Collections大写，有s；Comparator大写
 
- 		==：比较的是两个字符串内存地址（堆内存）的数值是否相等，属于数值比较；
- 		
- 		equals()：比较的是两个字符串的内容，属于内容比较。
- 		
-		有关对象类型相等判断的时候都使用equals()。
+```
+Collections.sort(result, new Comparator<String[]>(){
+ 	@Override
+	public int compare(String[] r1, String[] r2){
+		return r1[1].compareTo(r2[1]);
+	}
+});
+```
+    		
+#### 11.判断是否为空isEmpty()方法，if/while语句中默认为boolean类型的值
+
+#### 12.判断值是否相等
+  
+```
+int[] a = {1,2};  
+int[] b = a;  
+System.out.println(a.equals(b));  
+	
+int[] a = {1,2};  
+int[] b = {1,2};  
+System.out.println(Arrays.equals(a,b));  
+```
+另外就是equals 与 ==
     	
-    	```
+* 基本数据类型（也称原始数据类型） ：byte,short,char,int,long,float,double,boolean。他们之间的比较，应用双等号（==）,比较的是他们的值。
     	
-    * int范围内最大表示为Interger.MAX_VALUE; 初始值赋值需要依次遍历。用Arrays.fill()方法来快速填充.Java里面没有auto.
+* 引用数据类型：当他们用（==）进行比较的时候，比较的是他们在内存中的存放地址（确切的说，是堆内存地址）。对于第二种类型，除非是同一个new出来的对象，他们的比较后的结果为true，否则比较后结果为false。因为每new一次，都会重新开辟堆内存空间。
+    	
+Java在声明变量的时候会区分栈内存和堆内存，所有能看到的变量名称是在栈内存上，而变量的地址在堆内存。比如：
+
+```
+public class StringDemo {
+	public static void main(String args[]) {
+		String str1 = "Hello";
+		String str2 = new String("Hello");
+		String str3 = str2; // 引用传递
+		System.out.println(str1 == str2); // false
+		System.out.println(str1 == str3); // false
+		System.out.println(str2 == str3); // true
+		System.out.println(str1.equals(str2)); // true
+		System.out.println(str1.equals(str3)); // true
+		System.out.println(str2.equals(str3)); // true
+	}
+}
+```
+在栈中有str1,str2,str3三个变量，而在堆上只有str1,str2两个内存地址，str2与str3都指向一个地址。
+		
+* 因此：请解释字符串比较之中“==”和equals()的区别？
+
+	==：比较的是两个字符串内存地址（堆内存）的数值是否相等，属于数值比较；
+		
+	equals()：比较的是两个字符串的内容，属于内容比较。
+ 		
+	有关对象类型相等判断的时候都使用equals()。
+    	
+    	
+#### 13.int范围内最大表示为Interger.MAX_VALUE; 初始值赋值需要依次遍历。用Arrays.fill()方法来快速填充.Java里面没有auto.
    
-   		```
-   		for(int[] a: dp){
-            Arrays.fill(a, Integer.MAX_VALUE);
-   		     }
-  	 	```
-  	 	但是如果是long类型就要用Long.MAX_VALUE;
+```
+for(int[] a: dp){
+    Arrays.fill(a, Integer.MAX_VALUE);
+     }
+```
+但是如果是long类型就要用Long.MAX_VALUE;
   	 	
-  	* 在调用结构体中的元素值的时候用.,比如树结构中要用root.val
-  	* 数组的大小为length,String的大小为length(),其他泛型的大小为size()
-  	* isEmpty()等同于size()==0,已经分配了空间但是里面没有元素。 == null 表示根本没有分配空间。
-  	* public String substring(int beginIndex)起始索引（包括）, 索引从 0 开始。public String substring(int beginIndex, int endIndex)endIndex -- 结束索引（不包括）。
+* 在调用结构体中的元素值的时候用.,比如树结构中要用root.val
+* 数组的大小为length,String的大小为length(),其他泛型的大小为size()
+* isEmpty()等同于size()==0,已经分配了空间但是里面没有元素。 == null 表示根本没有分配空间。
+* public String substring(int beginIndex)起始索引（包括）, 索引从 0 开始。public String substring(int beginIndex, int endIndex)endIndex -- 结束索引（不包括）。
 
   	
-* 在声明数组的时候需要确定大小
-	* int[] array = new array[5];
-	* String[] name = {"ONE HUNDRED", "FIFTY", "TWENTY","TEN","FIVE","TWO","ONE","HALF DOLLAR","QUARTER","DIME","NICKEL","PENNY"};如果直接声明初始值注意用{}
-	* 如果声明空也要初始化
+## ArrayList
 
-			String result = "";
-* String
-	* String在java中作为一个对象要保持对象的操作，比如求长度要用String.length()，而在一个字符串中找某个字符的位置需要String.charAt()
+#### 1.在声明数组的时候需要确定大小
 
-* Integer
+```
+int[] array = new array[5];
+String[] name = {"ONE HUNDRED", "FIFTY", "TWENTY","TEN","FIVE","TWO","ONE","HALF DOLLAR","QUARTER","DIME","NICKEL","PENNY"};如果直接声明初始值注意用{}
+```
+如果声明空也要初始化
+
+```
+String result = "";
+```
+
+## String
+
+String在java中作为一个对象要保持对象的操作，比如求长度要用String.length()，而在一个字符串中找某个字符的位置需要String.charAt()
+
+## Integer
 	* (1) Integer是int的包装类；int是基本数据类型；
 	* (2) Integer变量必须实例化后才能使用；int变量不需要； 
 	* (3) Integer实际是对象的引用，指向此new的Integer对象；int是直接存储数据值 ； 
