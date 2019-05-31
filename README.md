@@ -6,6 +6,8 @@ array: length,因为array的长度是不可变的，length作为一个属性存�
 String, 其他泛型，因为是对象，所以需要调用方法来获取长度
 Q:为什么String需要调用length()而泛型是size()? String的特殊之处在哪里
 
+2. ArrayList源码
+
 ## General
 #### 1. C++, Java和C#都是静态类型的编程语言，Python，JavaScript是动态类型的编程语言。动态类型的编程语言开发效率往往更高，静态类型的编程语言运行效率往往更高。Java是一门强类型、静态类型的语言。变量声明的时候要指明变量类型，不一定要在声明的时候制定变量的值，变量在声明的时候会有一个默认值。
 #### 2. 基本数据类型有8个，分别为byte, short, int, long, float, double, boolean, char
@@ -153,7 +155,7 @@ for(int[] a: dp){
 * public String substring(int beginIndex)起始索引（包括）, 索引从 0 开始。public String substring(int beginIndex, int endIndex)endIndex -- 结束索引（不包括）。
 
   	
-## ArrayList
+## Array
 
 #### 1.在声明数组的时候需要确定大小
 
@@ -164,6 +166,83 @@ String[] name = {"ONE HUNDRED", "FIFTY", "TWENTY","TEN","FIVE","TWO","ONE","HALF
 //如果声明空也要初始化
 String result = "";
 
+```
+
+## ArrayList
+
+#### 1.经典Demo (Reference from https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/collection/ArrayList.md)
+
+```
+package list;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class ArrayListDemo {
+
+    public static void main(String[] srgs){
+         ArrayList<Integer> arrayList = new ArrayList<Integer>();
+
+         System.out.printf("Before add:arrayList.size() = %d\n",arrayList.size());
+
+         arrayList.add(1);
+         arrayList.add(3);
+         arrayList.add(5);
+         arrayList.add(7);
+         arrayList.add(9);
+         System.out.printf("After add:arrayList.size() = %d\n",arrayList.size());
+
+         System.out.println("Printing elements of arrayList");
+	 
+         // 三种遍历方式打印元素
+         // 第一种：通过迭代器遍历
+         System.out.print("通过迭代器遍历:");
+         Iterator<Integer> it = arrayList.iterator();
+         while(it.hasNext()){
+             System.out.print(it.next() + " ");
+         }
+         System.out.println();
+
+         // 第二种：通过索引值遍历
+         System.out.print("通过索引值遍历:");
+         for(int i = 0; i < arrayList.size(); i++){
+             System.out.print(arrayList.get(i) + " ");
+         }
+         System.out.println();
+
+         // 第三种：for循环遍历
+         System.out.print("for循环遍历:");
+         for(Integer number : arrayList){
+             System.out.print(number + " ");
+         }
+
+         // toArray用法
+         // 第一种方式(最常用)
+         Integer[] integer = arrayList.toArray(new Integer[0]);
+
+         // 第二种方式(容易理解)
+         Integer[] integer1 = new Integer[arrayList.size()];
+         arrayList.toArray(integer1);
+
+         // 抛出异常，java不支持向下转型
+         //Integer[] integer2 = new Integer[arrayList.size()];
+         //integer2 = arrayList.toArray();
+         System.out.println();
+
+         // 在指定位置添加元素
+         arrayList.add(2,2);
+         // 删除指定位置上的元素
+         arrayList.remove(2);    
+         // 删除指定元素
+         arrayList.remove((Object)3);
+         // 判断arrayList是否包含5
+         System.out.println("ArrayList contains 5 is: " + arrayList.contains(5));
+
+         // 清空ArrayList
+         arrayList.clear();
+         // 判断ArrayList是否为空
+         System.out.println("ArrayList is empty: " + arrayList.isEmpty());
+    }
+}
 ```
 
 ## String
