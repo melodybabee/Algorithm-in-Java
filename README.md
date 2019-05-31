@@ -10,6 +10,8 @@ Q:为什么String需要调用length()而泛型是size()? String的特殊之处�
 
 3. LinkedList源码
 
+4. HashTable源码
+
 ## General
 #### 1. C++, Java和C#都是静态类型的编程语言，Python，JavaScript是动态类型的编程语言。动态类型的编程语言开发效率往往更高，静态类型的编程语言运行效率往往更高。Java是一门强类型、静态类型的语言。变量声明的时候要指明变量类型，不一定要在声明的时候制定变量的值，变量在声明的时候会有一个默认值。
 #### 2. 基本数据类型有8个，分别为byte, short, int, long, float, double, boolean, char
