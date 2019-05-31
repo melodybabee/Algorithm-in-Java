@@ -479,3 +479,11 @@ Arrays.fill(array1, 1);
 //[1, 1, 1, 1, 1, 1, 1, 1]  
 System.out.println(Arrays.toString(array1));  
 ```
+
+
+
+# ToDo
+1.https://blog.csdn.net/renfufei/article/details/16905777
+array: length,因为array的长度是不可变的，length作为一个属性存在
+String, 其他泛型，因为是对象，所以需要调用方法来获取长度
+Q:为什么String需要调用length()而泛型是size()? String的特殊之处在哪里
