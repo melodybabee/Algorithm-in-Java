@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 # Java涉及的知识点
 ## General
 #### 1. C++, Java和C#都是静态类型的编程语言，Python，JavaScript是动态类型的编程语言。动态类型的编程语言开发效率往往更高，静态类型的编程语言运行效率往往更高。Java是一门强类型、静态类型的语言。变量声明的时候要指明变量类型，不一定要在声明的时候制定变量的值，变量在声明的时候会有一个默认值。
@@ -649,16 +648,16 @@ public Student(String name, int score) {
 
 #### 5.面向对象的3大特性
 
-* 􏰕􏰊􏰒封装Encapsulation􏰓：隐藏内部，保留对外接口
+* 封装Encapsulation：隐藏内部，保留对外接口
 
 	优点：改变程序组织方式，增加代码复用，增加可读性
 
-* 继承􏰃􏰋􏰒Inheritance􏰓
-* 􏰅􏰔􏰒多态Polymorphism􏰓
+* 继承􏰃􏰋􏰒Inheritance
+* 多态Polymorphism
 
 ## API
 
-####1.java.util.Arrays；
+#### 1.java.util.Arrays；
 * Arrays.asList();使用该方法可以将一个变长参数或者数组转换成List(15)
 * Arrays.sort();
 	
