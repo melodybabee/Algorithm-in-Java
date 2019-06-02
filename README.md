@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Java涉及的知识点
 ## General
 #### 1. C++, Java和C#都是静态类型的编程语言，Python，JavaScript是动态类型的编程语言。动态类型的编程语言开发效率往往更高，静态类型的编程语言运行效率往往更高。Java是一门强类型、静态类型的语言。变量声明的时候要指明变量类型，不一定要在声明的时候制定变量的值，变量在声明的时候会有一个默认值。
@@ -833,6 +834,160 @@ public class StringDemo {
 for(int[] a: dp){
     Arrays.fill(a, Integer.MAX_VALUE);
 }
+=======
+# Java涉及的知识点
+
+# ToDo
+1.https://blog.csdn.net/renfufei/article/details/16905777
+array: length,因为array的长度是不可变的，length作为一个属性存在
+String, 其他泛型，因为是对象，所以需要调用方法来获取长度
+Q:为什么String需要调用length()而泛型是size()? String的特殊之处在哪里
+
+2. ArrayList源码
+
+3. LinkedList源码
+
+4. HashTable源码
+
+## General
+#### 1. C++, Java和C#都是静态类型的编程语言，Python，JavaScript是动态类型的编程语言。动态类型的编程语言开发效率往往更高，静态类型的编程语言运行效率往往更高。Java是一门强类型、静态类型的语言。变量声明的时候要指明变量类型，不一定要在声明的时候制定变量的值，变量在声明的时候会有一个默认值。
+#### 2. 基本数据类型有8个，分别为byte, short, int, long, float, double, boolean, char
+#### 3. while()条件中放的是boolean类型的变量，那么如果判断是否存在要写成 != null的时候表示存在，不能只写出变量来判断是否存在
+#### 4. String在java中是一类对象，因此都需要大写。但是比如double是字符类型，因此要小写。通常String划分字符串需要用到
+
+```
+//比如用.来划分
+String[] str = line.split(".")
+//读出划分后的值并且转换为double类型
+double first = Double.parseDouble(str[0]);
+double second = Double.parseDouble(str[1]);
+
+```
+
+#### 5.类型转换
+
+```
+//转为int
+int cur = Integer.parseInt(content[2]);
+//转为double
+double second = Double.parseDouble(str[1]);
+
+```
+
+#### 6.基本数据类型，分为boolean、byte、int、char、long、short、double、float； 引用数据类型 ，分为数组、类、接口。
+
+在Java中，所有值也都有类型，不同的值有不同的范围。
+
+```		
+int:   -2^31-2^31-1, 约为2147483648，是一个10位数字。是一个32位的值,32位表示32个0/1二进制编码，4 byte, 4 byte* 8bits = 32bits
+long:  需要写成long num = 10000L; 没有后面的L是错的
+float: 范围较小的浮点数, float num = 3.2f, 没有f是错的
+double:范围较大的浮点数，double num = 3.2;
+范围小的值可以默认转换为范围较大的值，而范围较大的值需要通过强制转换才能转换为范围较小的值
+比如：3.0f/2 -> 3.0f/2.0f -> 1.5f
+     3.2.0f -> 3.0f/2.0f -> 1.5f
+char:  在计算机底层以整数的形式存储，所以每个字符都可以表示为一个数字。占2个字节，2 byte * 8 bits = 16 bits
+char类型小于int, int小于float
+```
+	
+#### 7.ASCII码与unicode
+
+ASCII码： 0-127；Unicode: 16进制，65536个值，是ASCII码的超集，向下兼容。
+
+因此可以通过unicode来对字符进行运算以及比较。
+		
+```
+int delta = 'a' - 'A'; 
+a is 97, A is 65;
+delta = 32;
+	
+'a'<'b' ------> true;
+	
+char preChar = 'a';
+char nextChar = (char)(prechar + 1);
+nextChar = 'b';
+	
+```
+	
+#### 8.拆箱和装箱：
+为了编程的方便还是引入了基本数据类型，但是为了能够将这些基本数据类型当成对象操作，Java为每一个基本数据类型都引入了对应的包装类型（wrapper class），int的包装类就是Integer，从Java 5开始引入了自动装箱/拆箱机制，使得二者可以相互转换。
+
+基本数据类型: boolean，char，byte，short，int，long，float，double
+封装类类型：Boolean，Character，Byte，Short，Integer，Long，Float，Double
+    
+#### 9.对于数组的输出不需要一个一个遍历，类似auto的操作
+
+```		
+for(String[] s : result){
+	System.out.println(s[0] + "," + s[1] + "," + s[2]);
+}
+```
+    			
+#### 10.自定义排序方法，Collections大写，有s；Comparator大写
+
+```
+Collections.sort(result, new Comparator<String[]>(){
+ 	@Override
+	public int compare(String[] r1, String[] r2){
+		return r1[1].compareTo(r2[1]);
+	}
+});
+```
+    		
+#### 11.判断是否为空isEmpty()方法，if/while语句中默认为boolean类型的值
+
+#### 12.判断值是否相等
+  
+```
+int[] a = {1,2};  
+int[] b = a;  
+System.out.println(a.equals(b));  
+	
+int[] a = {1,2};  
+int[] b = {1,2};  
+System.out.println(Arrays.equals(a,b));  
+```
+* 另外equals 与 ==
+    	
+	* 基本数据类型（也称原始数据类型） ：byte,short,char,int,long,float,double,boolean。他们之间的比较，应用双等号（==）,比较的是他们的值。
+    	
+	* 引用数据类型：当他们用（==）进行比较的时候，比较的是他们在内存中的存放地址（确切的说，是堆内存地址）。对于第二种类型，除非是同一个new出来的对象，他们的比较后的结果为true，否则比较后结果为false。因为每new一次，都会重新开辟堆内存空间。
+    	
+Java在声明变量的时候会区分栈内存和堆内存，所有能看到的变量名称是在栈内存上，而变量的地址在堆内存。比如：
+
+```
+public class StringDemo {
+	public static void main(String args[]) {
+		String str1 = "Hello";
+		String str2 = new String("Hello");
+		String str3 = str2; // 引用传递
+		System.out.println(str1 == str2); // false
+		System.out.println(str1 == str3); // false
+		System.out.println(str2 == str3); // true
+		System.out.println(str1.equals(str2)); // true
+		System.out.println(str1.equals(str3)); // true
+		System.out.println(str2.equals(str3)); // true
+	}
+}
+```
+在栈中有str1,str2,str3三个变量，而在堆上只有str1,str2两个内存地址，str2与str3都指向一个地址。
+		
+* 因此：请解释字符串比较之中“==”和equals()的区别？
+
+	==：比较的是两个字符串内存地址（堆内存）的数值是否相等，属于数值比较；
+		
+	equals()：比较的是两个字符串的内容，属于内容比较。
+ 		
+	有关对象类型相等判断的时候都使用equals()。
+    	
+    	
+#### 13.int范围内最大表示为Interger.MAX_VALUE; 初始值赋值需要依次遍历。用Arrays.fill()方法来快速填充.Java里面没有auto.
+   
+```
+for(int[] a: dp){
+    Arrays.fill(a, Integer.MAX_VALUE);
+}
+>>>>>>> 4e5fbea08a7151414ea1664566ad1be7d14a5e89
 ```
 但是如果是long类型就要用Long.MAX_VALUE;
   	 	
@@ -1252,4 +1407,7 @@ Arrays.fill(array1, 1);
 //[1, 1, 1, 1, 1, 1, 1, 1]  
 System.out.println(Arrays.toString(array1));  
 ```
+<<<<<<< HEAD
+>>>>>>> 4e5fbea08a7151414ea1664566ad1be7d14a5e89
+=======
 >>>>>>> 4e5fbea08a7151414ea1664566ad1be7d14a5e89
