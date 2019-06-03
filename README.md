@@ -100,53 +100,9 @@ Collections.sort(result, new Comparator<String[]>(){
 ```
     		
 #### 11.判断是否为空isEmpty()方法，if/while语句中默认为boolean类型的值
-
-#### 12.判断值是否相等
-  
-```
-int[] a = {1,2};  
-int[] b = a;  
-System.out.println(a.equals(b));  
-	
-int[] a = {1,2};  
-int[] b = {1,2};  
-System.out.println(Arrays.equals(a,b));  
-```
-* 另外equals 与 ==
-    	
-	* 基本数据类型（也称原始数据类型） ：byte,short,char,int,long,float,double,boolean。他们之间的比较，应用双等号（==）,比较的是他们的值。
-    	
-	* 引用数据类型：当他们用（==）进行比较的时候，比较的是他们在内存中的存放地址（确切的说，是堆内存地址）。对于第二种类型，除非是同一个new出来的对象，他们的比较后的结果为true，否则比较后结果为false。因为每new一次，都会重新开辟堆内存空间。
-    	
-Java在声明变量的时候会区分栈内存和堆内存，所有能看到的变量名称是在栈内存上，而变量的地址在堆内存。比如：
-
-```
-public class StringDemo {
-	public static void main(String args[]) {
-		String str1 = "Hello";
-		String str2 = new String("Hello");
-		String str3 = str2; // 引用传递
-		System.out.println(str1 == str2); // false
-		System.out.println(str1 == str3); // false
-		System.out.println(str2 == str3); // true
-		System.out.println(str1.equals(str2)); // true
-		System.out.println(str1.equals(str3)); // true
-		System.out.println(str2.equals(str3)); // true
-	}
-}
-```
-在栈中有str1,str2,str3三个变量，而在堆上只有str1,str2两个内存地址，str2与str3都指向一个地址。
-		
-* 因此：请解释字符串比较之中“==”和equals()的区别？
-
-	==：比较的是两个字符串内存地址（堆内存）的数值是否相等，属于数值比较；
-		
-	equals()：比较的是两个字符串的内容，属于内容比较。
- 		
-	有关对象类型相等判断的时候都使用equals()。
     	
     	
-#### 13.int范围内最大表示为Interger.MAX_VALUE; 初始值赋值需要依次遍历。用Arrays.fill()方法来快速填充.Java里面没有auto.
+#### 12.int范围内最大表示为Interger.MAX_VALUE; 初始值赋值需要依次遍历。用Arrays.fill()方法来快速填充.Java里面没有auto.
    
 ```
 for(int[] a: dp){
@@ -160,7 +116,7 @@ for(int[] a: dp){
 * isEmpty()等同于size()==0,已经分配了空间但是里面没有元素。 == null 表示根本没有分配空间。
 * public String substring(int beginIndex)起始索引（包括）, 索引从 0 开始。public String substring(int beginIndex, int endIndex)endIndex -- 结束索引（不包括）。
 
-#### 14.Array数组
+#### 13.Array数组
 ```
 int[] score = new int[此处需要标记数组的大小];
 int[] score = new int[]{1,2,3,4};
@@ -242,11 +198,28 @@ String result = "";
 
 ```
 
+#### 2.数据结构： Data + 结构 + 操作
+
+```
+//ArrayList调用了List接口
+//其中<>中可以放各种类型，称为泛型。不可以放int,不能放入基本数据类型
+ArrayList<Integer> arrayList = new ArrayList<>();
+```
+
+通常数据结构需要进行增删改查的操作，CRUD(create,read,update,delete)
+
 ## String
 
 #### 1.类型属性
 
-String类型大于8种基本类型
+String类型大于8种基本类型，其本身也是一个类，但是因为常用开辟了绿色通道
+
+```
+String str1 = new String("12345");
+等同于
+String str2 = "12345";
+```
+上面的str1与str2都是reference,因此String类型是不可变的。如果需要改变String中的内容，需要用到StringBuilder来进行操作，用StringBuilder.serCharAt()方法。
 
 #### 2.常用方法
 
@@ -268,6 +241,56 @@ String类型大于8种基本类型
 * 获取字符
 
 	String.charAt(i)
+	
+#### 3.比较相等
+  
+* equals 与 ==
+    	
+	* 基本数据类型（也称原始数据类型） ：
+	
+	  byte,short,char,int,long,float,double,boolean。他们之间的比较，应用双等号（==）,比较的是他们的值。
+    	
+	* 引用数据类型：
+	  
+	  当他们用（==）进行比较的时候，比较的是他们在内存中的存放地址（确切的说，是堆内存地址）。对于第二种类型，除非是同一个new出来的对象，他们的比较后的结果为true，否则比较后结果为false。因为每new一次，都会重新开辟堆内存空间。
+		
+		```
+		int[] a = {1,2};  
+		int[] b = a;  
+		System.out.println(a.equals(b));  
+			
+		int[] a = {1,2};  
+		int[] b = {1,2};  
+		System.out.println(Arrays.equals(a,b));  
+		```
+
+    	
+* Java在声明变量的时候会区分栈内存和堆内存，所有能看到的变量名称是在栈（基本数据类型和引用型变量的地址）内存上，而引用变量的对象本身在堆内存。比如：
+
+	```
+	public class StringDemo {
+		public static void main(String args[]) {
+			String str1 = "Hello";
+			String str2 = new String("Hello");
+			String str3 = str2; // 引用传递
+			System.out.println(str1 == str2); // false
+			System.out.println(str1 == str3); // false
+			System.out.println(str2 == str3); // true
+			System.out.println(str1.equals(str2)); // true
+			System.out.println(str1.equals(str3)); // true
+			System.out.println(str2.equals(str3)); // true
+		}
+	}
+	```
+在栈中有str1,str2,str3三个变量，而在堆上只有str1,str2两个内存地址，str2与str3都指向一个地址。
+		
+	E.g：请解释字符串比较之中“==”和equals()的区别？
+	
+	==：比较的是两个字符串内存地址（堆内存）是否相等
+				
+	equals()：比较的是两个字符串的内容，属于内容比较
+	 		
+	有关对象类型相等判断的时候都使用equals()。
 
 ## Integer
 #### 1.由于Integer变量实际上是对一个Integer对象的引用，所以两个通过new生成的Integer变量永远是不相等的（因为new生成的是两个对象，其内存地址不同）。
@@ -618,6 +641,7 @@ class Car {
 ```
 Car car = new Car();
 ```
+X.X是用来访问Object的属性。
 
 #### 2.命名规则
 
@@ -667,6 +691,79 @@ public Student(String name, int score) {
 
 * 继承􏰃􏰋􏰒Inheritance
 * 多态Polymorphism
+
+#### 6.Reference引用
+
+(1) 内存模型
+
+在计算机底层所有的值都要存在内存中，由内存地址来表示。比如按照1001，1002，1003，1004...以此类推进行递增。一个内存地址代表一个内存空间，内存空间大小是一个byte，也就是8 bits.
+
+一个int类型的值占用32位，32bits, 也就是4个内存地址。32位的操作系统的意思是一个内存地址用32bits表示。
+
+补充：32位的操作系统最多支持4GB的内存空间，也就是说CPU只能寻址2的32次方（4GB），注意这里的4GB是以Byte为单位的，不是bit。也就是说有:
+
+```
+4G
+=4*1024M（Byte）
+=4*1024*1024Kb(Byte)
+=4*1024*1024*1024bit(Byte)，即2的32次方个8bit单位。
+
+4G
+=2^2 GB
+=2^12 MB
+=2^22 KB
+=2^32 bites
+表示2^32个数
+```
+
+小端存储：按照从低地址到高地址的顺序存放据的低位字节到高位字节
+
+(2) 如何生成一个新的对象
+
+如果是基本数据类型,那么就是原样复制，会在内存空间里再开辟同样的一段空间存入新的值。
+
+```
+int num1 = 2;
+int num2 = num1;
+```
+
+如果是object,比如针对下面这一行代码，复制Student对象。不同于基本数据类型，student2不是原样复制的。
+
+Object并不存储对象本身，存储的是对象所表示的首地址。同时再开辟一块内存来存放student1,这块内存称为heap堆。这样做的目的是因为object中通常会有许多属性，如果每次全部复制需要占用巨大的内存空间，所以不会每次都重新复制。
+
+```
+//student1中存放的是对象的地址，不是对象本身
+Student student1 = new Student();
+
+//分为两步，首先找到student1的首地址，找到object本身；再修改属性
+student1.name = "Tom";
+
+//student1存的是对象的地址，copy也copy了student1的地址。
+Student student2 = student1;
+
+```
+（3）引用与对象的关系
+
+引用相当于遥控器，对象是电视机。在函数调用过程赋值中，实际上也是引用型变量的使用。
+
+（4）数组也是引用
+
+数组变量会在堆中开辟一片空间存储数组内容。
+
+数组中的空指针异常的问题：
+
+```
+Student[] students = new Student[2];
+students[0].name = "Jack";//会报空指针异常,nullPointerException
+
+```
+因为数组声明出来之后会默认为null,需要在数组中再声明一次后才能调用属性
+
+```
+students[0] = new Student();
+students[0].name = "Jack";
+```
+
 
 ## API
 
