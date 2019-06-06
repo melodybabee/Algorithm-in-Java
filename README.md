@@ -233,6 +233,16 @@ arrayList.set(1,12); [11,12]
 arrayList.remove(0); [12]
 arrayList.clear(); []
 ```
+ 
+#### 3.其他操作
+```
+List<String> person=new ArrayList<>(); 
+person.contains（Object o); 返回true或者false
+person.isEmpty(); 空则返回true，非空则返回false
+List中是数组类型，List<String[]> result = new ArrayList<>();
+取list的长度要用person.size()
+
+```
 
 ## String
 
@@ -370,29 +380,244 @@ Stack<int> st = new Stack<>();
 ```
 判断一个对象是否为空要用isEmpty()方法
 
-## Map
+## Stack
 
-#### 1.map.containsKey()来判断某个key是否存在
-#### 2.map.put(key,value)来插入新的键值对
-#### 3.map.get(key)用来获取key所对应的value
-建立map,map中仍然套着一个对象的时候
+#### 1.特性
+
+LIFO：last in first out 后进先出
+
+#### 2.常用方法
 
 ```
+Stack<Integer> st = new Stack<>();//注意<>中需要放入泛型，不能放入基本数据类型
+st.push(); 压进一个元素
+st.pop(); 弹出一个元素，同时返回栈定元素
+st.peak(); 获得栈顶元素但是不pop出来新的元素
+st.isEmpty(); 判断是否为空
+```
+#### 3.栈的实现，用LinkedList实现
+
+```
+public class MyStack {
+
+	//建立ListNode类型的变量，在ListNode类中建立属性和构造函数
+    private ListNode head;
+    
+    //在头结点的前面插入新的元素
+    public void push(int value) {
+        ListNode newHead = new ListNode(value);
+        newHead.next = head;
+        head = newHead;
+    }
+
+	//返回并弹出第一个值
+    public int pop() {
+        if(isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        int ret = head.val;
+        head = head.next;
+        return ret;
+    }
+    
+    //返回第一个值
+    public int peek() {
+        if(isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return head.val;
+    }
+
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+    public void clear() {
+        head = null;
+    }  
+}
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int val) {
+        this.val = val;
+    }
+}
+
+```
+#### 4.函数调用栈 call stack
+
+先执行的函数最后结束，后执行的函数先结束，操作系统用来保存函数的状态。
+
+例如：
+
+```
+public class OsStackExample {
+
+    public static void main(String[] args) {
+        int num = 10;
+        //在主函数中遇到foo(),停止，调用foo()
+        foo();
+    }
+
+    public static void foo() {
+        String name = "abc";
+        //在foo()中遇到bar(),停止，调用bar()
+        bar();
+        //得到bar()返回结果，继续执行foo()
+    }
+
+    public static void bar() {
+    	//在bar()中遇到baz(),停止，调用baz()
+        baz();
+		//得到baz()返回结果，继续执行bar()
+        int[] arr = new int[] {1, 2, 3};
+        for(int elem : arr) {
+            System.out.println(elem);
+        }
+    }
+
+    public static void baz() {
+        ListNode listNode = new ListNode(0);
+        //baz()执行完毕，返回
+    }
+}
+```
+
+其中临时变量存在栈中，对象入堆。
+
+```
+String name = "abc";中的name存入栈，"abc"对象入堆。
+```
+那么在Java的栈中，由顶部到底部包括了：
+
+```
+listNode addr in heap
+bar pc
+foo pc
+name addr in heap(在堆中的name引用指向的地址信息）
+main pc(program counter记录函数的地址）
+10
+
+```
+执行完baz()函数之后再逐渐以此弹出。
+
+
+## Queue
+
+#### 1.特性
+
+FIFO，先进先出
+
+#### 2.基本操作
+
+```
+Queue<int[]> q = new LinkedList<>(); //Queue是一个interface,继承了LinkedList类
+
+q.offer();插入并返回true，如果队列已满，则返回false
+	  
+q.poll();移除并返问队列头部的元素
+
+q.peek();返回头部元素
+
+q.isEmpty();
+
+enqueue 进队列
+
+dequeue 出队列
+```
+#### 3.Queue的实现，用LinkedList
+
+```
+public class MyQueue {
+    private ListNode head;
+    private ListNode tail;
+
+	//要从后面插入新的结点，因此需要一个tail指针在链表的尾部便于插入
+    public void offer(int val) {
+        if (tail == null) {
+            head = tail = new ListNode(val);
+        } else {
+            tail.next = new ListNode(val);
+            tail = tail.next;
+        }
+    }
+
+    public int poll() {
+        if(isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        int ret = head.val;
+        head = head.next;
+        if (head == null) {
+            tail = null;
+        }
+        return ret;
+    }
+
+    public int peek() {
+        if(isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return head.val;
+    }
+
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+    public void clear() {
+        head = tail = null;
+    }
+}
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int val) {
+        this.val = val;
+    }
+}
+
+```
+#### 4.消息队列 message queue
+
+计算机所有的操作都可以认为是一种消息模式，操作系统需要处理每一个消息，所有的操作形成了消息队列，先到先进行处理。  
+
+
+## Map (index, dictionary, key-value pair)
+
+#### 1.特点
+
+key值唯一的key-value对
+
+#### 2.操作
+```
+map.containsKey();来判断某个key是否存在
+map.put(key,value);来插入新的键值对,如果put的key已经存在，会覆盖
+map.get(key);用来获取key所对应的value,时间复杂度O(1)
+map.size();
+
+//建立map,map中仍然套着一个对象的时候
 Map<String,List<Integer>> map = new HashMap<>();
-```
 
-每当用到这个内部的对象的时候都需要new一个对象出来：
+//当用到这个内部的对象的时候都需要new一个对象出来：
+List<Integer> list = new ArrayList<Integer>();
+
+//遍历map,注意遍历了key set
+for (String key : map.keySet()) {
+	System.print.out(key + map.get("key"));
+}
 
 ```
-List<Integer> list = new ArrayList<Integer>()
-```
-#### 4.Map是java中的接口，Map.Entry是Map的一个内部接口。
+#### 3.Map是java中的接口，Map.Entry是Map的一个内部接口。
 	
-keySet()方法返回值是Map中key值的集合；
+* keySet()方法返回值是Map中key值的集合；
 
-entrySet()的返回值也是返回一个Set集合，此集合的类型为Map.Entry。
+* entrySet()的返回值也是返回一个Set集合，此集合的类型为Map.Entry。
 		
-Map.Entry是Map声明的一个内部接口，此接口为泛型，定义为Entry<K,V>。它表示Map中的一个实体（一个key-value对）。接口中有getKey(),getValue（）方法。
+* Map.Entry是Map声明的一个内部接口，此接口为泛型，定义为Entry<K,V>。它表示Map中的一个实体（一个key-value对）。接口中有getKey(),getValue（）方法。
 	
 ```
 Map<String, String> map = new HashMap<String, String>();    
@@ -427,6 +652,50 @@ for (String v : map.values()) {
 }
 
 ```
+
+#### 4.Hash Table原理
+
+不同的key通过Hash function来形成hash code, 映射到对应的buckets数组上。如果不同的key映射到数组的同一个位置上了，那么会有不同的冲突解决方案collision solution。
+
+##### (1) 哈希函数的特点
+
+* 	确定性：x一定，y就是确定的值
+*  不可逆：x可以通过哈希函数得到y，y不能得到x
+*  输出的是整数
+
+#####（2）好的哈希函数
+
+* 尽可能的减少碰撞
+* 复杂度不是很高，因为复杂度过高会增加时间复杂度
+* 通常有module division取余法，mid-square平方取中法，radix function基数转换法，从10进制转换为13进制
+
+#####（3）Java的Hash function
+
+```
+for (char c : str) {
+	hashCode = 31 * hashCode + C;
+}
+与Unicode有关，比如Aa = A * 31 + a = 65 * 31 + 97 = 2112; 与BB的值相等；
+```
+#####（4）冲突解决方案
+
+* 开散列 open hashing/ seperate chaining 拉链法
+
+	数组中的每一个元素是链表的头结点的引用，如果当前位置已经被占用，那么连到后面，查找的时候遍历链表。
+	
+* 闭散列 close hashing
+
+	一个位置只放一个键值对，有冲突之后则查找其他地方加入。最常见的是线性探查，遇到冲突之后有空的位置就插入。
+	
+#####（5）负载因子 load factor
+
+哈希表中已有元素/哈希表的容量 = 负载因子指数。
+
+负载因子小于0.5，大部分检索长度小于2； 大于0.5，查找效率急剧下降。 HashTable是以空间换时间的策略。
+
+#####（6）重哈希 rehashing
+
+当元素过多或者过少的时候，重新调整HashTable容量的大小，所有的键值对的位置需要重新摆放。
 	
 ## List
 
@@ -446,41 +715,33 @@ for (String v : map.values()) {
 * 修改：set()
 * 清空表：clear()
 
+
 ## Linked List
 
-#### 1.获取结构题中的值直接用"."来获得相应的属性即可，不需要区分值还是地址。
+#### 1.链表是什么
 
-Queue是LinkedList的一种
-
-```
-Queue<int[]>q = new LinkedList<>();
+由结点构成的线性数据结构
 
 ```
-#### 2.基本操作
-
-* q.offer()插入并返回true，如果队列已满，则返回false
-	  
-* q.poll()移除并返问队列头部的元素，如果队列为空，则返回null
-
-* q.peek()返回头部元素，如果队列为空，则返回null
-     
-#### 3. Java抛出异常和返回阻塞时还有不同的操作【待学习】
-
-## ArrayList： 
+class ListNode {
+	public int val;
+	public ListNode next;
+	
+	//构造函数
+	public ListNode(int val){
+		this.val = val;
+	}
+}
 ```
-List<String> person=new ArrayList<>(); 
-```
-[举例的链接](https://www.cnblogs.com/epeter/p/5648026.html) 
 
-* 添加方法是：.add(e)；　　
-* 获取方法是：.get(index)；　
-* 按照索引删除；.remove(index） 
-* 按照元素内容删除: .remove(Object o)；
-* 方法：.contains（Object o）； 返回true或者false
-* list中根据索引将元素数值改变(替换)：注意 .set(index, element); 和 .add(index, element); 的不同；
-* 判断list是否为空；person.isEmpty(),空则返回true，非空则返回false
-* List中是数组类型，List<String[]> result = new ArrayList<>();
-* 取list的长度要用size()
+#### 2.链表的操作
+
+在遍历链表的过程中，想要修改链表必须要通过next来修改。
+
+#### 3.dummy结点
+
+在整个链表的前面插入一个dummy哨兵结点，便于链表的操作与返回。
+
 
 ## Sort:
 
@@ -514,6 +775,57 @@ public class Main {
     }
 }
 ```
+## Set
+
+#### 1.特性
+
+非重复的无序数据结构，可以想象成一个bag.
+
+#### 2.操作
+
+```
+Set<Integer> set = new HashSet<>();
+set.insert();
+set.find();
+set.delete();
+set.contains();判断某个元素是否存在
+set.size();
+
+//遍历set
+for (int num : set) {
+
+}
+
+```
+
+#### 3.set的迭代器
+
+Set<Integer> set = new HashSet<>();HashSet类中没有提供根据集合索引获取索引对应的值的方法。    
+因此遍历HashSet时需要使用Iterator迭代器。Iterator的主要方法如下：
+
+```
+public static void main(String args[]) {
+	Set set = new HashSet();
+	set.add("apple");
+	set.add("orange");
+	set.add("pear");
+	set.add("pear");//重复元素不能加入
+	set.add("banana");
+	Iterator iterator = set.iterator();
+	//定义迭代器
+	while(iterator.hasNext())//如果有下一位
+	{
+		System.out.println(iterator.next());//输出下一位上的值
+	}      
+ }
+
+```
+
+#### 4.TreeSet和HashSet
+TreeSet是可以保持自然顺序或者定义的比较器比较的结果顺序的Set集合，有序，由平衡树组成，log(n)。
+
+HashSet是O(1)的时间复杂度。
+
 
 ## PriorityQueue
 
@@ -544,29 +856,6 @@ public class Main {
 * ArrayList用法类似于数组，且其容量可按需要动态调整，亦被称为动态数组
 * LinkedList表示链表的操作类，它同时实现了List和Queue接口。它的优点在于向集合中插入、删除元素时效率比较高，
 特别是可以直接对集合的首部和尾部元素进行插入和删除操作，LinkedList提供了专门针对首尾元素的方法
-* Set集合存储顺序无序，不可以保存重复元素。
-* Set set = new HashSet();HashSet类中没有提供根据集合索引获取索引对应的值的方法。    
-因此遍历HashSet时需要使用Iterator迭代器。Iterator的主要方法如下：
-
-```
-public static void main(String args[]) {
-	Set set = new HashSet();
-	set.add("apple");
-	set.add("orange");
-	set.add("pear");
-	set.add("pear");//重复元素不能加入
-	set.add("banana");
-	Iterator iterator = set.iterator();
-	//定义迭代器
-	while(iterator.hasNext())//如果有下一位
-	{
-		System.out.println(iterator.next());//输出下一位上的值
-	}      
- }
-
-```
-
-* TreeSet是可以保持自然顺序或者定义的比较器比较的结果顺序的Set集合。
 
 ## Comparator
 * Arrays.sort(T[],Comparator<? super T> c);
@@ -791,6 +1080,27 @@ students[0] = new Student();
 students[0].name = "Jack";
 ```
 
+## 算法复杂度
+
+#### 1.含义
+
+表示程序执行时间与输入问题规模之间的关系，通常表示最坏的情况。O表示上界的含义。
+
+* O(n)
+* O(n^2)
+* O(nlogn) 归并排序
+* O（logn)
+* O(1) 与n无关
+
+#### 2.不同数据结构的时间复杂度对比
+
+| | ArrayList | LinkedList |
+| :------: | :------: | :------:| 
+| add()头部添加 | O(n) | O(1)| 
+| add()尾部添加 | O(1) | O(n)| 
+| add() | O(n) | O(n)|
+| get() | O(1) | O(n)|
+| set() | O(1) | O(n)|
 
 ## API
 
