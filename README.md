@@ -663,13 +663,13 @@ for (String v : map.values()) {
 *  不可逆：x可以通过哈希函数得到y，y不能得到x
 *  输出的是整数
 
-#####（2）好的哈希函数
+#####(2）好的哈希函数
 
 * 尽可能的减少碰撞
 * 复杂度不是很高，因为复杂度过高会增加时间复杂度
 * 通常有module division取余法，mid-square平方取中法，radix function基数转换法，从10进制转换为13进制
 
-#####（3）Java的Hash function
+#####(3）Java的Hash function
 
 ```
 for (char c : str) {
@@ -677,7 +677,7 @@ for (char c : str) {
 }
 与Unicode有关，比如Aa = A * 31 + a = 65 * 31 + 97 = 2112; 与BB的值相等；
 ```
-#####（4）冲突解决方案
+#####(4）冲突解决方案
 
 * 开散列 open hashing/ seperate chaining 拉链法
 
@@ -687,13 +687,13 @@ for (char c : str) {
 
 	一个位置只放一个键值对，有冲突之后则查找其他地方加入。最常见的是线性探查，遇到冲突之后有空的位置就插入。
 	
-#####（5）负载因子 load factor
+#####(5）负载因子 load factor
 
 哈希表中已有元素/哈希表的容量 = 负载因子指数。
 
 负载因子小于0.5，大部分检索长度小于2； 大于0.5，查找效率急剧下降。 HashTable是以空间换时间的策略。
 
-#####（6）重哈希 rehashing
+#####(6）重哈希 rehashing
 
 当元素过多或者过少的时候，重新调整HashTable容量的大小，所有的键值对的位置需要重新摆放。
 	
