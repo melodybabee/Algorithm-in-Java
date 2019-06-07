@@ -15,6 +15,8 @@ Q:为什么String需要调用length()而泛型是size()? String的特殊之处�
 
 5. https://blog.csdn.net/erlian1992/article/details/51298276 有关接口看这个链接的例子
 
+6.C++字符串https://blog.csdn.net/tengfei461807914/article/details/52203202
+
 
 ## General
 #### 1. C++, Java和C#都是静态类型的编程语言，Python，JavaScript是动态类型的编程语言。动态类型的编程语言开发效率往往更高，静态类型的编程语言运行效率往往更高。Java是一门强类型、静态类型的语言。变量声明的时候要指明变量类型，不一定要在声明的时候制定变量的值，变量在声明的时候会有一个默认值。
@@ -257,6 +259,22 @@ String str2 = "12345";
 ```
 上面的str1与str2都是reference,因此String类型是不可变的。如果需要改变String中的内容，需要用到StringBuilder来进行操作，用StringBuilder.serCharAt()方法。
 
+```
+public class Hello {
+    public static void main(String argv[]) {
+        String sa = "abc";
+        String sb = "abc";
+        if (sa == sb) {
+            System.out.println("Yes");
+        } else {
+            System.out.println("No");
+        }
+    }
+}
+结果为Yes.
+```
+先在内存中创建字符串“abc”, 然后将地址的引用给了变量sa， 随后又把这个地址的引用给了sb。因此sa和sb引用的是同一段内存。
+
 #### 2.常用方法
 
 * concat:连接，可以与任何类型作操作
@@ -268,6 +286,10 @@ String str2 = "12345";
 	float f = 18.123f;
 	str += f; // str: "a stringtrue18.123"
 	```
+	使用“+”或者“concat”方法拼接字符串的时候，会创建一个新的字符串，占用新的内存空间，因此使用“==”判断时返回false。
+	
+	使用“=”赋值时，如果内存中已经有这个字符串，就会直接将其地址给这个变量，不会产生新的字符串,使用“==”判断时返回true。
+	
 * 获取长度
   
   str.length() 需要调用函数，因此是一个方法
@@ -328,6 +350,56 @@ String str2 = "12345";
 	equals()：比较的是两个字符串的内容，属于内容比较
 	 		
 	有关对象类型相等判断的时候都使用equals()。
+
+#### 4.null与""的区别
+
+* null
+	* null表示的是一个对象的值，而并不是一个字符串。例如声明一个对象的引用，String a = null ;
+	* String str = null ; 表示声明一个字符串对象的引用，但指向为null，也就是说还没有指向任何的内存空间；
+	* * new String()创建一个字符串对象的默认值为"" （String类型成员变量的初始值为null）
+	
+	```
+	String str1 = new String() ;//"",分配了空字符串的内存空间
+	String str2 = null ;//声明一个新的引用，没有分配内存(堆空间）
+	```
+	
+* ""
+	* ""表示的是一个空字符串，也就是说它的长度为0。例如声明一个字符串String str = "" ;
+	* String str = "";    表示声明一个字符串类型的引用，其值为""空字符串，这个str引用指向的是空字符串的内存空间；
+
+* 判断字符串是否为空的方法
+
+```
+方法一: 最多人使用的一个方法, 直观, 方便, 但效率很低:
+if(s == null || s.equals(""));
+
+方法二: 比较字符串长度, 效率高, 是我知道的最好一个方法:
+if(s == null || s.length() == 0);
+
+方法三: Java SE 6.0 才开始提供的方法, 效率和方法二几乎相等, 但出于兼容性考虑, 推荐使用方法二.
+if(s == null || s.isEmpty());
+
+方法四: 这是一种比较直观,简便的方法,而且效率也非常的高,与方法二、三的效率差不多:
+if (s == null || s == "");
+
+
+注意:s == null 是有必要存在的,并且s==null 的顺序必须出现在前面
+如果 String 类型为null, 而去进行 equals(String) 或 length() 等操作会抛出java.lang.NullPointerException.
+如下Java代码:
+String str = null;
+if (str.equals("") || str == null) {//会抛出异常
+	System.out.println("success");
+}
+```
+####5.StringBuilder
+
+StringBuilder类并没有重写equals方法，因此使用equals比较时，需要时同一个实例才会返回true。否则返回false。
+
+```
+String H_2 = "hel";  
+StringBuilder helloBuilder = new StringBuilder("hel");  
+System.out.println(helloBuilder.equals(H_2)); // false
+```
 
 ## Integer
 #### 1.由于Integer变量实际上是对一个Integer对象的引用，所以两个通过new生成的Integer变量永远是不相等的（因为new生成的是两个对象，其内存地址不同）。
