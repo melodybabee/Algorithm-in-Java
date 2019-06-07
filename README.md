@@ -272,8 +272,36 @@ public class Hello {
     }
 }
 结果为Yes.
-```
 先在内存中创建字符串“abc”, 然后将地址的引用给了变量sa， 随后又把这个地址的引用给了sb。因此sa和sb引用的是同一段内存。
+
+public class Hello {
+    public static void main(String argv[]) {
+        String sa = new String("abc");
+        String sb = "abc";
+        if (sa == sb) {
+            System.out.println("Yes");
+        } else {
+            System.out.println("No");
+        }
+    }
+}
+结果为No.
+
+public class Hello {
+    public static void main(String argv[]) {
+        String sa = new String("abc");
+        String sb = new String("abc");
+        if (sa == sb) {
+            System.out.println("Yes");
+        } else {
+            System.out.println("No");
+        }
+    }
+}
+结果为No.
+
+```
+
 
 #### 2.常用方法
 
@@ -298,8 +326,15 @@ public class Hello {
 
 * 获取字符
 
-	String.charAt(i)
+  String.charAt(i)
+  
+  String 不支持下标索引的方式访问，同时也就没有办法使用下标的方式对String进行修改。
+  
+* 取子字符串
+
+   String.substring()
 	
+  	
 #### 3.比较相等
   
 * equals 与 ==
