@@ -426,7 +426,7 @@ if (str.equals("") || str == null) {//会抛出异常
 	System.out.println("success");
 }
 ```
-####5.StringBuilder
+#### 5.StringBuilder
 
 StringBuilder类并没有重写equals方法，因此使用equals比较时，需要时同一个实例才会返回true。否则返回false。
 
