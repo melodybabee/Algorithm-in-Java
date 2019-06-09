@@ -47,7 +47,7 @@ public static void traverseTree(TreeNode root) {
 * [66. Binary Tree Preorder Traversal
 ](https://www.lintcode.com/problem/binary-tree-preorder-traversal/description) 
 
-[Solution]
+[Solution](https://github.com/melodybabee/Algorithm-in-Java/blob/master/Tree/0066.Binary%20Tree%20Preorder%20Traversal.java)
 
 
 
