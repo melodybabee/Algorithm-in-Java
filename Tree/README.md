@@ -35,6 +35,14 @@ public static void traverseTree(TreeNode root) {
 }
 ```
 
+#### 2.树的遍历
+
+```
+//前序遍历
+//中序遍历
+//后续遍历
+```
+
 #### 例题
 * [66. Binary Tree Preorder Traversal
 ](https://www.lintcode.com/problem/binary-tree-preorder-traversal/description) 
