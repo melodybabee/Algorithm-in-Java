@@ -3,10 +3,6 @@
 
 # ToDo
 
-2. ArrayList源码
-
-3. LinkedList源码
-
 4. HashTable源码
 
 5. https://blog.csdn.net/erlian1992/article/details/51298276 有关接口看这个链接的例子
@@ -99,11 +95,8 @@ Collections.sort(result, new Comparator<String[]>(){
 	}
 });
 ```
-    		
-#### 11.判断是否为空isEmpty()方法，if/while语句中默认为boolean类型的值
-    	
-    	
-#### 12.int范围内最大表示为Interger.MAX_VALUE; 初始值赋值需要依次遍历。用Arrays.fill()方法来快速填充.Java里面没有auto.
+
+#### 11.int范围内最大表示为Interger.MAX_VALUE; 初始值赋值需要依次遍历。用Arrays.fill()方法来快速填充.Java里面没有auto.
    
 ```
 for(int[] a: dp){
@@ -1081,7 +1074,10 @@ for (String v : map.values()) {
 
 #### 1.链表是什么
 
-由结点构成的线性数据结构
+由结点构成的线性数据结构,同时实现了List和Deque接口。
+
+优点在于向集合中插入、删除元素时效率比较高，特别是可以直接对集合的首部和尾部元素进行插入和删除操作，LinkedList提供了专门针对首尾元素的方法
+
 
 ```
 class ListNode {
@@ -1102,6 +1098,152 @@ class ListNode {
 #### 3.dummy结点
 
 在整个链表的前面插入一个dummy哨兵结点，便于链表的操作与返回。
+
+#### 4.LinkedList源码 [Reference](https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/collection/LinkedList.md)
+
+node节点
+```
+private static class Node<E> {
+        E item;//节点值
+        Node<E> next;//后继节点
+        Node<E> prev;//前驱节点
+
+        Node(Node<E> prev, E element, Node<E> next) {
+            this.item = element;
+            this.next = next;
+            this.prev = prev;
+        }
+}
+```
+常用方法：
+```
+public LinkedList() {
+
+}
+
+//将元素添加到链表尾部
+public boolean add(E e) {
+        linkLast(e);//这里就只调用了这一个方法
+        return true;
+}
+void linkLast(E e) {
+	//建立一个指向尾部的指针
+        final Node<E> l = last;
+        final Node<E> newNode = new Node<>(l, e, null);
+        last = newNode;//新建节点
+        if (l == null)
+            first = newNode;
+        else
+            l.next = newNode;//指向后继元素也就是指向下一个元素
+        size++;
+        modCount++;
+}
+
+//在指定位置添加元素
+public void add(int index, E element) {
+        checkPositionIndex(index); //检查索引是否处于[0-size]之间
+
+        if (index == size)//添加在链表尾部
+            linkLast(element);
+        else//添加在链表中间
+            linkBefore(element, node(index));
+}
+
+//将元素添加到链表头部
+public void addFirst(E e) {
+        linkFirst(e);
+}
+private void linkFirst(E e) {
+	//建立一个指向头结点的指针
+        final Node<E> f = first;
+        final Node<E> newNode = new Node<>(null, e, f);//新建节点，以头节点为后继节点
+        first = newNode;
+        //如果链表为空，last节点也指向该节点
+        if (f == null)
+            last = newNode;
+        //否则，将头节点的前驱指针指向新节点，也就是指向前一个元素
+        else
+            f.prev = newNode;
+        size++;
+        modCount++;
+}
+
+//获取指定位置的值
+public E get(int index) {
+        //检查index范围是否在size之内
+        checkElementIndex(index);
+        //调用Node(index)去找到index对应的node然后返回它的值
+        return node(index).item;
+}
+
+//检查对象o是否存在于链表中
+public boolean contains(Object o) {
+        return indexOf(o) != -1;
+}
+
+//删除指定位置元素
+public E remove(int index) {
+        //检查index范围
+        checkElementIndex(index);
+        //将节点删除
+        return unlink(node(index));
+}
+
+//删除指定元素
+public boolean remove(Object o) {
+        //如果删除对象为null
+        if (o == null) {
+            //从头开始遍历
+            for (Node<E> x = first; x != null; x = x.next) {
+                //找到元素
+                if (x.item == null) {
+                   //从链表中移除找到的元素
+                    unlink(x);
+                    return true;
+                }
+            }
+        } else {
+            //从头开始遍历
+            for (Node<E> x = first; x != null; x = x.next) {
+                //找到元素
+                if (o.equals(x.item)) {
+                    //从链表中移除找到的元素
+                    unlink(x);
+                    return true;
+                }
+            }
+        }
+        return false;
+}
+
+E unlink(Node<E> x) {
+        // assert x != null;
+        final E element = x.item;
+        final Node<E> next = x.next;//得到后继节点
+        final Node<E> prev = x.prev;//得到前驱节点
+
+        //删除前驱指针
+        if (prev == null) {
+            first = next;//如果删除的节点是头节点,令头节点指向该节点的后继节点
+        } else {
+            prev.next = next;//将前驱节点的后继节点指向后继节点
+            x.prev = null;
+        }
+
+        //删除后继指针
+        if (next == null) {
+            last = prev;//如果删除的节点是尾节点,令尾节点指向该节点的前驱节点
+        } else {
+            next.prev = prev;
+            x.next = null;
+        }
+
+        x.item = null;
+        size--;
+        modCount++;
+        return element;
+}
+```
 
 
 ## Sort:
@@ -1213,10 +1355,6 @@ HashSet是O(1)的时间复杂度。
 *   int index3 = Collections.indexOfSubList(list2, subList);查找子串在集合中首次出现的位置
 *   Collections.swap(list2, 0, 3);交换集合中指定元素的位置
 
-## 常用类
-* ArrayList用法类似于数组，且其容量可按需要动态调整，亦被称为动态数组
-* LinkedList表示链表的操作类，它同时实现了List和Queue接口。它的优点在于向集合中插入、删除元素时效率比较高，
-特别是可以直接对集合的首部和尾部元素进行插入和删除操作，LinkedList提供了专门针对首尾元素的方法
 
 ## Comparator
 * Arrays.sort(T[],Comparator<? super T> c);
