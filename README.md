@@ -5,8 +5,6 @@
 
 4. HashTable源码
 
-5. https://blog.csdn.net/erlian1992/article/details/51298276 有关接口看这个链接的例子
-
 6.C++字符串https://blog.csdn.net/tengfei461807914/article/details/52203202
 
 
@@ -175,8 +173,55 @@ public class Main {
 
 #### 1.List接口
 
-ArrayList实现了List接口，可以实现和调用list方法。List是一个接口，而ArrayList是List接口的一个实现类。 
+ArrayList实现了List接口，可以实现和调用list方法，是继承AbstractList抽象类和实现List接口的一个实现类。
 
+List是一个接口，而ArrayList是List接口的一个实现类。 
+
+#### 2.Interface基础
+
+抽象类和接口都不能被构造，不能创建实例对象。接口可以通过创建一个指向自己的对象引用，而ArrayList实现类的实例对象就在这充当了这个指向List接口的对象引用。 
+
+```
+List list;//正确，list = null; 
+List list = new List();//错误
+List list = new ArrayList();//创建了一个ArrayList实现类的对象后把它上溯到了List接口，它就是一个List对象了，只能调用List类里面的属性和方法
+ArrayList list=new ArrayList()//创建一对象则保留了ArrayList的所有属性和方法
+```
+举例：
+```
+public class Test{
+	public static void main(String[] args){
+		Animal a1 = new Dog();//只能使用Animal类中的属性和方法
+		a1.shout();//编译通过
+		//a1.guard();//编译出错
+		Dog d1 = new Dog();//可以调用抽象类和子类的所有属性和方法
+	}
+}
+ 
+abstract class Animal{
+	//动物名字
+	String name;
+	
+	//动物叫声
+	public void shout(){
+		System.out.println("叫声...");
+	}
+}
+ 
+class Dog extends Animal{
+	//狗类独有的方法
+	public void guard(){
+		System.out.println("狗有看门的独特本领！");
+	}
+}
+```
+其中：
+```
+List a=new ArrayList(); 
+```
+a拥有List的所有属性和方法，不会拥有其实现类ArrayList的独有的属性和方法。 
+
+注意如果List与ArrayList中有相同的属性(如int i),有相同的方法(如void f()),  则a.i是调用了List中的i, a.f()是调用了ArrayList中的f(); 
 
 ## Array
 
