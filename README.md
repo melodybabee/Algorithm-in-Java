@@ -1014,6 +1014,8 @@ for (String key : map.keySet()) {
 * Map.Entry是Map声明的一个内部接口，此接口为泛型，定义为Entry<K,V>。它表示Map中的一个实体（一个key-value对）。接口中有getKey(),getValue（）方法。
 	
 ```
+//如果定位到的数组位置没有元素 就直接插入。
+//如果定位到的数组位置有元素，遍历以这个元素为头结点的链表，依次和插入的key比较，如果key相同就直接覆盖，不同就采用头插法插入元素。
 Map<String, String> map = new HashMap<String, String>();    
 map.put("key1", "value1");    
 map.put("key2", "value2");    
@@ -1049,7 +1051,7 @@ for (String v : map.values()) {
 
 #### 4.Hash Table原理
 
-不同的key通过Hash function来形成hash code, 映射到对应的buckets数组上。如果不同的key映射到数组的同一个位置上了，那么会有不同的冲突解决方案collision solution。
+不同的key通过Hash function（扰动函数）来形成hash code, 映射到对应的buckets数组上。如果不同的key映射到数组的同一个位置上了，那么会有不同的冲突解决方案collision solution。
 
 * (1) 哈希函数的特点
 
@@ -1089,10 +1091,10 @@ for (String v : map.values()) {
 
 	哈希表中已有元素/哈希表的容量 = 负载因子指数。
 	
-	负载因子小于0.5，大部分检索长度小于2； 大于0.5，查找效率急剧下降。 HashTable是以空间换时间的策略。
+	负载因子小于0.5，大部分检索长度小于2； 大于0.5，查找效率急剧下降。loadFactor的默认值为0.75f是官方给出的一个比较好的临界值。HashTable是以空间换时间的策略。
 
 
-* (6）重哈希 rehashing
+* (6）重哈希 rehashing(resize()方法)
 
 	当元素过多或者过少的时候，重新调整HashTable容量的大小，所有的键值对的位置需要重新摆放。
 	
