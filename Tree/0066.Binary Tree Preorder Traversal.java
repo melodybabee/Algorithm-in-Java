@@ -1,12 +1,12 @@
 /**
  * Definition of TreeNode:
  * public class TreeNode {
- *     public int val;
- *     public TreeNode left, right;
- *     public TreeNode(int val) {
- *         this.val = val;
- *         this.left = this.right = null;
- *     }
+ * public int val;
+ * public TreeNode left, right;
+ * public TreeNode(int val) {
+ * this.val = val;
+ * this.left = this.right = null;
+ * }
  * }
  */
 
@@ -22,10 +22,10 @@ public class Solution {
         preorder(root, result);
         return result;
     }
-    
+
     //in the parameter java use reference, so that every time of recursion root will be copied and change the value of this address
     //for result, every time will copy its address so the final result will be changed for many times
-    public void preorder(TreeNode root, List<Integer> result){
+    public void preorder(TreeNode root, List<Integer> result) {
         if (root == null) {
             return;
         }
@@ -47,7 +47,7 @@ public class Solution {
         // write your code here
         List<Integer> result = new ArrayList<Integer>();
         Stack<TreeNode> st = new Stack<TreeNode>();
-        
+
         //when root is null
         if (root == null) {
             return result;
@@ -59,12 +59,12 @@ public class Solution {
             result.add(node.val);
             if (node.right != null) {
                 st.push(node.right);
-            } 
+            }
             if (node.left != null) {
                 st.push(node.left);
             }
         }
-        
+
         return result;
     }
 }
