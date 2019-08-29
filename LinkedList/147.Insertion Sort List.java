@@ -3,6 +3,8 @@
 2.start from this new linkedlist at every time, iterate the old linkedlist and to compare the new linkedlist with the cur node
 3.if find the position larger than the cur, insert the cur to the right place
 4.copy the target node to the new linkedlist
+
+need create a new linkedlist, use cur to do the for loop of the old linkedlist than connect to the new one.
 */
 // T(n) = O(n^2);
 /**
