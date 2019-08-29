@@ -1,4 +1,4 @@
-// find the start point in the linkedlist, firstly confirm whether it has cycle, then walk step by step
+// find the start point in the cycle, firstly confirm whether it has cycle, then walk step by step
 /**
  * Definition for singly-linked list.
  * class ListNode {
