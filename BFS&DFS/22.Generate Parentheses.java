@@ -50,15 +50,15 @@ class Solution {
             result.add(st.toString());
         }
         if (left < total) {
-        st.append('(');
-        dfs(result, total, left + 1, right, st);
-        st.deleteCharAt(st.length() - 1);
+            st.append('(');
+            dfs(result, total, left + 1, right, st);
+            st.deleteCharAt(st.length() - 1);
         }
         
         if (right < left) {
-        st.append(')');
-        dfs(result, total, left, right + 1, st);
-        st.deleteCharAt(st.length() - 1);
+            st.append(')');
+            dfs(result, total, left, right + 1, st);
+            st.deleteCharAt(st.length() - 1);
         }
     }
 }
