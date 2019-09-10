@@ -1,5 +1,5 @@
 /*
-The ofder is from top to down, and from left to right. So it should be BFS. DFS cannot totally satisfy this situation.
+The oder is from top to down, and from left to right. So it should be BFS. DFS cannot totally satisfy this situation.
 Use col property to record the position
 */
 /**
