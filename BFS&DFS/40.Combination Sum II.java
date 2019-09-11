@@ -21,7 +21,20 @@ class Solution {
             return;
         }
         for (int i = index ; i < candidates.length; ++i) {
-            // Notice the meaning of i and the meanung of index, index is the standard position, and i will keep moving, so that could identify whether leave or not
+            // Notice the meaning of i and the meaning of index, index is the standard position, and i will do the iteration, once equals to the former one in the same level, continue.
+            /* [1,1,2,2,5] target = 8
+            if in the same level, delete
+            1 1 
+            2 2
+            5
+            
+            normal DFS, start from 1
+            1
+            1
+            2
+            2
+            5
+            */
             // [1,1,2,2,3] target is 1, output is [1,1,3],[1,2,2],[2,3]
             if (i > index && candidates[i] == candidates[i-1]) continue;
             sol.add(candidates[i]);
