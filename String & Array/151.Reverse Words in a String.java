@@ -37,6 +37,7 @@ class Solution {
     private String deleteSpace(char[] charArray) {
         int slow = 0;
         for (int i = 0; i < charArray.length; ++i) {
+            // Notice the order of (i == 0 || charArray[i-1] == ' ')
             if (charArray[i] == ' ' && (i == 0 || charArray[i-1] == ' ')) {
                 continue;
             }
