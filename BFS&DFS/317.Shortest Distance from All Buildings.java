@@ -21,7 +21,7 @@ class Solution {
         int result = Integer.MAX_VALUE;
         for (int i = 0; i < row; ++i) {
             for (int j = 0; j < col; ++j) {
-                if (grid[i][j] == 0 && sumCost[i][j] != 0) {
+                if (grid[i][j] == 0) {
                     result = Math.min(result, sumCost[i][j]);
                 }
             }
