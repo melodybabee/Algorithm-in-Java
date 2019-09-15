@@ -12,6 +12,7 @@ public class Solution {
             return;
         }
         if (offset == 0) return;
+        // Notice should consider whether will be overflow for every time
         offset %= str.length;
         
         // the length should start from the end

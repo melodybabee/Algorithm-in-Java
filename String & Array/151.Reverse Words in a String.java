@@ -13,7 +13,7 @@ class Solution {
         int slow = 0;
         for (start = 0; start < charArray.length; ++start) {
             if (charArray[start] == ' '){
-            	
+            	// reverse part is [slow, start - 1], there is always a ' ', and slow will come to start + 1
                 reverse(charArray, slow, start - 1);
                 slow = start + 1;
             }
@@ -45,6 +45,7 @@ class Solution {
             ++slow;
         }
         if (slow == 0) return new String();
+        // Delete the space starting from the second one, so that should confirm the end part
         return charArray[slow-1] == ' ' ? new String(charArray, 0, slow - 1) :new String(charArray, 0, slow);
     }
 }
