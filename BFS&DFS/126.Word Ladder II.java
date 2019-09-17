@@ -81,3 +81,80 @@ class Solution {
         
     }
 }
+
+// Improve
+class Solution {
+    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+        List<List<String>> result = new ArrayList<List<String>>();
+        HashSet<String> words = new HashSet<>();
+        for (String str: wordList) {
+            words.add(str);
+        }
+        HashMap<String, List<String>> path = new HashMap<>();
+        Queue<String> q = new LinkedList<>();
+        boolean flag = false;
+        q.offer(beginWord);
+        
+        // Build graph
+        findPath(q, path, endWord, words, flag);
+        
+        // DFS
+        // Need identify whether this graph has formed or not
+        if (!path.containsKey(endWord)) return result;
+        List<String> sol = new ArrayList<>();
+        sol.add(endWord);
+        dfs(result, path, beginWord, endWord, sol);
+        return result;
+    }
+    
+    private void dfs(List<List<String>> result, HashMap<String, List<String>> path, String beginWord, String endWord, List<String> sol) {
+        if (endWord.equals(beginWord)) {
+            result.add(new ArrayList<>(sol));
+            return;
+        }
+        
+        List<String> words = path.get(endWord);
+        for (String word: words) {
+            sol.add(0, word);
+            dfs(result, path, beginWord, word, sol);
+            sol.remove(0);
+        }
+    }
+    
+    private void findPath(Queue<String> q, HashMap<String, List<String>> path, String endWord, HashSet<String> words, boolean flag) {
+        while (!q.isEmpty()) {
+            int size = q.size();
+            HashSet<String> visited = new HashSet<>();
+            while(size-- > 0) {
+                String str = q.poll();
+                char[] chars = str.toCharArray();
+                for (int i = 0; i < chars.length; ++i) {
+                    char ch = chars[i];
+                    for (char c = 'a'; c <= 'z'; ++c) {
+                        chars[i] = c;
+                        String newstring = String.valueOf(chars);
+                        if (words.contains(newstring)) {
+                            if (newstring.equals(endWord)) {
+                                flag = true;
+                            }
+                            
+                            if (!path.containsKey(newstring)) {
+                                List<String> list = new ArrayList<>();
+                                list.add(str);
+                                path.put(newstring, list);
+                                q.offer(newstring);
+                                visited.add(newstring);
+                            } else {
+                                path.get(newstring).add(str);
+                            }
+                        }
+                    }
+                    chars[i] = ch;
+                }
+            }
+            words.removeAll(visited);
+            if (flag) return;
+        }
+        return;
+    }
+}
