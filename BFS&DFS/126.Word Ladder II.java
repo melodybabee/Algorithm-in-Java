@@ -38,6 +38,7 @@ class Solution {
                                 List<String> list = new ArrayList<String>();
                                 list.add(str);
                                 map.put(sol, list);
+                                // Only when sol is a new String, push it to then queue, if it has existed, don't push into the queue
                                 q.offer(sol);
                                 visited.add(sol);
                             } else {

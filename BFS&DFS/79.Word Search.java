@@ -16,11 +16,12 @@ class Solution {
     }
     
     private boolean dfs(char[][] board, String word, int idx, int i, int j, boolean[][] visited) {
-        // base cases
+        // base cases, when idx over the length, that means all chars in the String have been matched
         if (idx == word.length()) {
             return true;
         }
         
+        // Don't forget check the duplication
         if (i < 0 || j < 0 || i >= board.length || j >= board[0].length || visited[i][j] || board[i][j] != word.charAt(idx)) {
             return false;
         }
