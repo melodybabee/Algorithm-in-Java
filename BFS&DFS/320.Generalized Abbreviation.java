@@ -33,3 +33,42 @@ class Solution {
         
     }
 }
+
+
+
+// Easy to read
+class Solution {
+    public List<String> generateAbbreviations(String word) {
+        List<String> res = new ArrayList<>();
+        StringBuilder path = new StringBuilder();
+        dfs(res, path, word, 0, 0);
+        return res;
+    }
+    
+    private void dfs(List<String>res, StringBuilder path, String word, int index, int count) {
+        if (index == word.length()) {
+            if (count > 0) {
+                path.append(count);
+            }
+            res.add(path.toString());
+            return;
+        }
+        int len = path.length();
+        // digit
+        dfs(res, path, word, index + 1, count + 1);
+        // set back to the original length
+        path.setLength(len);
+        // letter
+        if (count > 0) {
+            path.append(count);
+            count = 0;
+            dfs(res, path, word, index + 1, count);
+            path.setLength(len);
+        } else {
+            path.append(word.charAt(index));
+            dfs(res, path, word, index + 1, count);
+            path.setLength(len);
+        }
+        
+    }
+}
