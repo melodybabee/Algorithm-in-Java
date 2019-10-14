@@ -45,3 +45,42 @@ class Solution {
         return countNodes(root.left) + countNodes(root.right) + 1;
     }
 }
+
+// Use the property of complete tree and perfect tree
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int countNodes(TreeNode root) {
+        // Corner cases
+        if (root == null) {
+            return 0;
+        }
+        int heightL = getHeight(root.left);
+        int heightR = getHeight(root.right);
+        
+        if (heightL == heightR) {
+            // Math.pow() will return a double result, convert it to the int type
+            return (int)Math.pow(2, heightL) - 1 + countNodes(root.right) + 1;
+        } else if (heightL > heightR) {
+            return (int)Math.pow(2, heightR) - 1 + countNodes(root.left) + 1;
+        }
+        return -1;
+    }
+    
+    // complete tree could use left side to calculate the height
+    private int getHeight(TreeNode root) {
+        int height = 0;
+        while (root != null) {
+            ++height;
+            root = root.left;
+        }
+        return height;
+    }
+}
