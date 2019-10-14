@@ -95,3 +95,31 @@ class Solution {
         return mem[0];
     }
 }
+
+// DP 
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        // Corner cases
+        if (s == null || s.length() == 0) {
+            return false;
+        }
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[s.length()] = true;
+        HashSet<String> dict = new HashSet<>();
+        for (String word: wordDict) {
+            dict.add(word);
+        }
+        for (int i = s.length() - 1; i >= 0; --i) {
+            for (int j = i + 1; j <= s.length(); ++j) {
+                String temp = s.substring(i,j);
+                // This if condition must when dp[j] is true, continue. 
+                if (dict.contains(temp) && dp[j]) {
+                    dp[i] = dp[j];
+                    // Once change false to true, break. Or if there is 
+                    break;
+                }
+            }
+        }
+        return dp[0];
+    }
+}
