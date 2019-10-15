@@ -11,11 +11,13 @@ class Solution {
     public List<TreeNode> generateTrees(int n) {
         // Corner cases
         if (n <= 0) return new ArrayList<TreeNode>();
+        // Start from 1, 0 is invalid
         return genTree(1, n);
     }
     
     private List<TreeNode> genTree(int start, int end) {
         List<TreeNode> res = new ArrayList<>();
+        // When start == end, it is the single node, it is valid
         if (start > end) {
             res.add(null);
             return res;
