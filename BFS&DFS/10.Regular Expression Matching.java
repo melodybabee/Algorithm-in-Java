@@ -136,39 +136,3 @@ class Solution {
         return dp[0][0];
     }
 }
-
-// DFS with pruning, use a Boolean[] to record the status
-class Solution {
-    public boolean wordBreak(String s, List<String> wordDict) {
-        // Corner cases
-        if (s == null || s.length() == 0) {
-            return false;
-        }
-        HashSet<String> dic = new HashSet<>();
-        Boolean[] mem = new Boolean[s.length() + 1];
-        for (String str: wordDict) {
-            dic.add(str);
-        }
-        return dfs(s, 0, dic, mem);
-    }
-    
-    private boolean dfs(String s, int index, HashSet<String> dic, Boolean[] mem) {
-        if (index == s.length()) {
-            return true;
-        }
-        if (mem[index] != null) {
-            return mem[index];
-        }
-        for (int i = index; i < s.length(); ++i) {
-            String str = s.substring(index, i + 1);
-            if (dic.contains(str)) {
-                if (dfs(s, i + 1, dic, mem)) {
-                    mem[index] = true;
-                    return true;
-                }
-            }
-        }
-        mem[index] = false;
-        return false;
-    }
-}
