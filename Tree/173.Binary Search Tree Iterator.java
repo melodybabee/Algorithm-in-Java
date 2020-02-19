@@ -8,34 +8,30 @@
  * }
  */
 class BSTIterator {
-    
-    private Stack<TreeNode> st;
 
+    Stack<TreeNode> st;
     public BSTIterator(TreeNode root) {
         st = new Stack<>();
-        pushNode(st, root);
+        while (root != null) {
+            st.push(root);
+            root = root.left;
+        }
     }
     
     /** @return the next smallest number */
     public int next() {
-        TreeNode temp = st.pop();
-        if (temp.right != null) {
-            pushNode(st, temp.right);
+        TreeNode res = st.pop();
+        TreeNode cur = res.right;
+        while (cur != null) {
+            st.push(cur);
+            cur = cur.left;
         }
-        return temp.val;
+        return res.val;
     }
     
     /** @return whether we have a next smallest number */
     public boolean hasNext() {
         return !st.isEmpty();
-    }
-    
-    // Keep space is always O(h);
-    private void pushNode(Stack<TreeNode> st, TreeNode root) {
-        while (root != null) {
-            st.push(root);
-            root = root.left;
-        }
     }
 }
 
